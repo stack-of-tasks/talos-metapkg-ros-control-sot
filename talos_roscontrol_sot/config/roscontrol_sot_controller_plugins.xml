@@ -1,0 +1,9 @@
+<library path="lib/libtalos_rcsot_controller">
+
+  <class name="talos_sot_controller/RCSotController" type="talos_sot_controller::RCSotController" base_class_type="controller_interface::ControllerBase">
+    <description>
+       The roscontrol SotController generates whole body motions for your robot (following the talos interface).
+    </description>
+  </class>
+</library>
+
