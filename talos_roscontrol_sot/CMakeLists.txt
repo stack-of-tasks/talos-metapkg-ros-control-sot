@@ -75,7 +75,7 @@ include_directories(
   )
 
 ## Declare a C++ library
-add_library(rcsot_controller 
+add_library(talos_rcsot_controller 
 src/roscontrol-sot-controller.cpp
 src/log.cpp
 )
@@ -85,14 +85,14 @@ src/log.cpp
 # add_dependencies(roscontrol_sot_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(rcsot_controller
+target_link_libraries(talos_rcsot_controller
   ${catkin_LIBRARIES}
   ${bullet_LIBRARIES}
   )
 
 
 ## Mark executables and/or libraries for installation
-install(TARGETS rcsot_controller DESTINATION lib )
+install(TARGETS talos_rcsot_controller DESTINATION lib )
 
 
 foreach(dir config launch)
