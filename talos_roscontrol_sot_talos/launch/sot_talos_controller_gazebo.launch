@@ -1,12 +1,12 @@
 <launch>
 
   <!-- Sot Controller configuration -->
-  <rosparam command="load" file="$(find roscontrol_sot_talos)/config/sot_talos_params_gazebo.yaml"/>
-  <rosparam command="load" file="$(find roscontrol_sot_talos)/config/sot_talos_controller.yaml" />
+  <rosparam command="load" file="$(find talos_roscontrol_sot_talos)/config/sot_talos_params_gazebo.yaml"/>
+  <rosparam command="load" file="$(find talos_roscontrol_sot_talos)/config/sot_talos_controller.yaml" />
   
   <!-- Spawn walking controller -->
   <node name="sot_controller_spawner"
-        pkg="controller_manager" type="spawner" output="screen"
+        pkg="talos_controller_manager" type="spawner" output="screen"
         args="sot_controller" />
 
 </launch>
