@@ -21,7 +21,7 @@ include(cmake/ros.cmake)
 include(cmake/GNUInstallDirs.cmake)
 include(cmake/python.cmake)
 
-project(roscontrol_sot)
+project(talos_roscontrol_sot)
 
 find_package(PkgConfig REQUIRED)
 
@@ -41,7 +41,7 @@ find_package(catkin REQUIRED COMPONENTS
   control_msgs
   sensor_msgs
   realtime_tools
-  controller_interface
+  talos_controller_interface
 )
 
 ## LAAS cmake submodule part

@@ -1,6 +1,6 @@
 <package>
   <name>metapkg_talos_roscontrol_sot</name>
-  <version>0.0.0</version>
+  <version>0.0.1</version>
   <description>A set of packages that include sot-wrapper and talos sot params .</description>
 
   <maintainer email="olivier.stasse@laas.fr">Olivier Stasse</maintainer>
