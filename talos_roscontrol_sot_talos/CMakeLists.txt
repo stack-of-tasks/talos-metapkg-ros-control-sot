@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(roscontrol_sot_talos)
+project(talos_roscontrol_sot_talos)
 
 find_package(PkgConfig REQUIRED)
 
