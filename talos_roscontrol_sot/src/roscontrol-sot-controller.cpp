@@ -35,7 +35,7 @@
 #define ODEBUG4FULL(x)
 #define ODEBUG4(x)
 
-using namespace hardware_interface;
+using namespace talos_hardware_interface;
 using namespace rc_sot_system;
 
 namespace talos_sot_controller  
@@ -67,7 +67,7 @@ namespace talos_sot_controller
   }
 
   bool RCSotController::
-  initRequest (hardware_interface::RobotHW * robot_hw, 
+  initRequest (talos_hardware_interface::RobotHW * robot_hw, 
 	       ros::NodeHandle &robot_nh,
 	       ros::NodeHandle &controller_nh,
 	       std::set<std::string> & claimed_resources)
@@ -87,7 +87,7 @@ namespace talos_sot_controller
   }
   
   bool RCSotController::
-  initInterfaces(hardware_interface::RobotHW * robot_hw,
+  initInterfaces(talos_hardware_interface::RobotHW * robot_hw,
 		 ros::NodeHandle &,
 		 ros::NodeHandle &,
 		 std::set<std::string> & claimed_resources)
@@ -103,7 +103,7 @@ namespace talos_sot_controller
     if (! pos_iface_)
       {
 	ROS_ERROR("This controller requires a hardware interface of type '%s'."
-		  " Make sure this is registered in the hardware_interface::RobotHW class.",
+		  " Make sure this is registered in the talos_hardware_interface::RobotHW class.",
 		  getHardwareInterfaceType().c_str());
 	return false ;
       }
@@ -113,7 +113,7 @@ namespace talos_sot_controller
     if (! effort_iface_)
       {
 	ROS_ERROR("This controller requires a hardware interface of type '%s'."
-		  " Make sure this is registered in the hardware_interface::RobotHW class.",
+		  " Make sure this is registered in the talos_hardware_interface::RobotHW class.",
 		  getHardwareInterfaceType().c_str());
 	    return false ;
       }
@@ -123,7 +123,7 @@ namespace talos_sot_controller
     if (! ft_iface_ )
       {
 	ROS_ERROR("This controller requires a hardware interface of type '%s '. " 
-		  " Make sure this is registered inthe hardware_interface::RobotHW class.",
+		  " Make sure this is registered inthe talos_hardware_interface::RobotHW class.",
 		  internal :: demangledTypeName<ForceTorqueSensorInterface>().c_str());
 	return false ;
       }
@@ -132,7 +132,7 @@ namespace talos_sot_controller
     if (! imu_iface_)
       {
 	ROS_ERROR("This controller requires a hardware interface of type '%s'."
-		  " Make sure this is registered in the hardware_interface::RobotHW class.",
+		  " Make sure this is registered in the talos_hardware_interface::RobotHW class.",
 		  internal :: demangledTypeName<ImuSensorInterface>().c_str());
 	return false ;
       }
@@ -145,7 +145,7 @@ namespace talos_sot_controller
 	if (!act_temp_iface_)
 	  {
 	    ROS_ERROR("This controller requires a hardware interface of type '%s'."
-		      " Make sure this is registered in the hardware_interface::RobotHW class.",
+		      " Make sure this is registered in the talos_hardware_interface::RobotHW class.",
 		      internal :: demangledTypeName<ActuatorTemperatureSensorInterface>().c_str());
 	    return false ;	  
 	  }
@@ -662,10 +662,10 @@ namespace talos_sot_controller
   getHardwareInterfaceType() const
   {
     //return type_name_;
-    return hardware_interface::internal::demangledTypeName<hardware_interface::PositionJointInterface>();
+    return talos_hardware_interface::internal::demangledTypeName<talos_hardware_interface::PositionJointInterface>();
   }
   
 
   PLUGINLIB_EXPORT_CLASS(talos_sot_controller::RCSotController, 
-			 controller_interface::ControllerBase);
+			 talos_controller_interface::ControllerBase);
 }
