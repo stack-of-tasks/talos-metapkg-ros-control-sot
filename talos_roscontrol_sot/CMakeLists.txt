@@ -46,8 +46,8 @@ find_package(catkin REQUIRED COMPONENTS
 
 ## LAAS cmake submodule part
 set(PROJECT_DESCRIPTION "Integration of the Stack of Tasks in roscontrol")
-set(PROJECT_NAME roscontrol_sot)
-set(PROJECT_URL "https://github.com/stack-of-tasks/roscontrol_sot")
+set(PROJECT_NAME talos_roscontrol_sot)
+set(PROJECT_URL "ssh://git@redmine.laas.fr/laas/users/ostasse/pyrene-talos/metapkg_talos_roscontrol_sot.git")
 
 set(CXX_DISABLE_WERROR False)
 
