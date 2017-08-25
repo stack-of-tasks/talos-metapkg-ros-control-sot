@@ -17,7 +17,7 @@ find_package(catkin REQUIRED COMPONENTS
   control_msgs
   sensor_msgs
   realtime_tools
-  controller_interface
+  talos_controller_interface
 )
 
 include_directories(include ${bullet_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS})

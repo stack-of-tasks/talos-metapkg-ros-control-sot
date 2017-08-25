@@ -600,8 +600,8 @@ namespace talos_sot_controller
     std::string cmdTitle;
     if (control_mode_==POSITION)
       cmdTitle="cmd-joints";
-    else 
-      cmdTitle="cmd-torques";
+    else if (control_mode_==EFFORT)
+      cmdTitle="cmd-effort";
 
     it_map_rt_to_sot it_mapRC2Sot= mapFromRCToSotDevice.find(cmdTitle);
     if (it_mapRC2Sot!=mapFromRCToSotDevice.end())
