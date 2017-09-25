@@ -1,4 +1,4 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(metapkg_talos_roscontrol_sot)
+project(talos_metapkg_ros_control_sot)
 find_package(catkin REQUIRED)
 catkin_metapackage()
