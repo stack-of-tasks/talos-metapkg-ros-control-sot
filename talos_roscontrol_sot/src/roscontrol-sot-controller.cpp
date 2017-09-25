@@ -31,7 +31,7 @@
     DebugFile << x << std::endl;		\
     DebugFile.close();}
 
-#define RESERDEBUG4()
+#define RESETDEBUG4()
 #define ODEBUG4FULL(x)
 #define ODEBUG4(x)
 
@@ -50,6 +50,7 @@ namespace talos_sot_controller
     simulation_mode_(false),
     control_mode_(POSITION)
   {
+    RESETDEBUG4();
   }
   
   void RCSotController::
@@ -662,7 +663,12 @@ namespace talos_sot_controller
   getHardwareInterfaceType() const
   {
     //return type_name_;
-    return talos_hardware_interface::internal::demangledTypeName<talos_hardware_interface::PositionJointInterface>();
+    if (control_mode_==POSITION)
+      return talos_hardware_interface::internal::
+	demangledTypeName<talos_hardware_interface::PositionJointInterface>();
+    else if (control_mode_==EFFORT)
+      return talos_hardware_interface::internal::
+	demangledTypeName<talos_hardware_interface::EffortJointInterface>();
   }
   
 
