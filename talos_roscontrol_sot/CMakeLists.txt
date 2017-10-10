@@ -16,6 +16,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 cmake_minimum_required(VERSION 2.8.3)
 
+# Authorize warning error.
+SET(CXX_DISABLE_WERROR)
+
 include(cmake/base.cmake)
 include(cmake/ros.cmake)
 include(cmake/GNUInstallDirs.cmake)
@@ -41,7 +44,7 @@ find_package(catkin REQUIRED COMPONENTS
   control_msgs
   sensor_msgs
   realtime_tools
-  talos_controller_interface
+  controller_interface
 )
 
 ## LAAS cmake submodule part

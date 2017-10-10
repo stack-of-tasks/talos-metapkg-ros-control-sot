@@ -30,7 +30,7 @@
   <build_depend>control_msgs</build_depend>
   <build_depend>sensor_msgs</build_depend>
   <build_depend>realtime_tools</build_depend>
-  <build_depend>talos_controller_interface</build_depend>
+  <build_depend>controller_interface</build_depend>
   <build_depend>cmake_modules</build_depend>
   <build_depend>dynamic_graph_bridge</build_depend>
 
@@ -40,12 +40,12 @@
   <run_depend>realtime_tools</run_depend>
   <run_depend>rospy</run_depend>
   <run_depend>std_msgs</run_depend>
-  <run_depend>talos_controller_interface</run_depend>
+  <run_depend>controller_interface</run_depend>
   <run_depend>cmake_modules</run_depend>
   <run_depend>message_runtime</run_depend>
   <run_depend>dynamic_graph_bridge</run_depend>
   <!-- The export tag contains other, unspecified, tags -->
   <export>
-    <talos_controller_interface plugin="${prefix}/config/roscontrol_sot_controller_plugins.xml"/>
+    <controller_interface plugin="${prefix}/config/roscontrol_sot_controller_plugins.xml"/>
   </export>
 </package>
