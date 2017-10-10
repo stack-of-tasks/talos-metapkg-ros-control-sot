@@ -84,6 +84,9 @@ namespace talos_sot_controller
     /// Create SoT
     SotLoaderBasic::Initialization();
 
+    /// If we are in effort mode then the device should not do any integration.
+    if (control_mode_==EFFORT)
+      sotController_->setNoIntegration();
     return true;
   }
   
