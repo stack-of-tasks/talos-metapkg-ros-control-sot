@@ -541,10 +541,10 @@ namespace talos_sot_controller
 	std::string orientation_s("orientation_");
 	setSensorsImu(orientation_s, idIMU, DataOneIter_.orientation);
 
-	std::string gyrometer_s("gyrometer_");
+	std::string gyrometer_s("gyrometer_0");
 	setSensorsImu(gyrometer_s, idIMU, DataOneIter_.gyrometer);
 
-	std::string accelerometer_s("accelerometer_");
+	std::string accelerometer_s("accelerometer_0");
 	setSensorsImu(accelerometer_s, idIMU, DataOneIter_.accelerometer);
       }
   }
@@ -552,7 +552,6 @@ namespace talos_sot_controller
   void RCSotController::
   fillForceSensors()
   {
-    
     for(unsigned int idFS=0;idFS<ft_sensors_.size();
 	idFS++)
       {

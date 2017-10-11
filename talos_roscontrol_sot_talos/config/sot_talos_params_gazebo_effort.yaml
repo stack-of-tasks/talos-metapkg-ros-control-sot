@@ -8,6 +8,6 @@ sot_controller:
     arm_right_1_joint, arm_right_2_joint, arm_right_3_joint, arm_right_4_joint, arm_right_5_joint, arm_right_6_joint, arm_right_7_joint, gripper_right_joint,
     head_1_joint, head_2_joint ]
   map_rc_to_sot_device: { motor-angles: motor-angles ,
-  joint-angles: joint-angles, velocities: velocities,
+  joint-angles: joint-angles, velocities: velocities, forces: forces, currents: currents,
   torques: torques, cmd-joints: control, cmd-effort: control }
   control_mode: EFFORT 
