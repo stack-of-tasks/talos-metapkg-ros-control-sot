@@ -6,7 +6,7 @@
   
   <!-- Spawn walking controller -->
   <node name="sot_controller_spawner"
-        pkg="talos_controller_manager" type="spawner" output="screen"
+        pkg="controller_manager" type="spawner" output="screen"
         args="sot_controller" />
 
 </launch>
