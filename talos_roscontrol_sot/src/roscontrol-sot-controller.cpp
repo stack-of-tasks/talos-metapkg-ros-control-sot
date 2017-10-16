@@ -500,8 +500,8 @@ namespace talos_sot_controller
 					   int IMUnb,
 					   std::vector<double> & data)
   {
-    std::ostringstream labelOss(name);
-    labelOss << IMUnb;
+    std::ostringstream labelOss;
+    labelOss << name << IMUnb;
     std::string label_s = labelOss.str();
     fillSensorsIn(label_s,data);
   }
@@ -541,10 +541,10 @@ namespace talos_sot_controller
 	std::string orientation_s("orientation_");
 	setSensorsImu(orientation_s, idIMU, DataOneIter_.orientation);
 
-	std::string gyrometer_s("gyrometer_0");
+	std::string gyrometer_s("gyrometer_");
 	setSensorsImu(gyrometer_s, idIMU, DataOneIter_.gyrometer);
 
-	std::string accelerometer_s("accelerometer_0");
+	std::string accelerometer_s("accelerometer_");
 	setSensorsImu(accelerometer_s, idIMU, DataOneIter_.accelerometer);
       }
   }
