@@ -45,6 +45,7 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   realtime_tools
   talos_controller_interface
+  talos_pal_hardware_interfaces
 )
 
 ## LAAS cmake submodule part
