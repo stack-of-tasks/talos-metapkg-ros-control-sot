@@ -1,0 +1,19 @@
+variables:
+  GIT_SSL_NO_VERIFY: "true"
+
+.build: &build
+  before_script:
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_DEPLOY_KEY")
+    - echo "REPOSITORY.talos-metapkg-ros-control-sot=git git@eur0c.laas.fr:gsaurel/talos_metapkg_ros_control_sot.git" >> /opt/openrobots/etc/robotpkg.conf
+  script:
+    - /checkout.sh
+    - cd /root/robotpkg/wip/talos-metapkg-ros-control-sot && make install
+
+build-14:
+    image: eur0c.laas.fr:4567/gsaurel/buildfarm/pyrene-dev/talos-metapkg-ros-control-sot:14.04
+    <<: *build
+
+build-16:
+    image: eur0c.laas.fr:4567/gsaurel/buildfarm/pyrene-dev/talos-metapkg-ros-control-sot:16.04
+    <<: *build
