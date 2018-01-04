@@ -44,11 +44,35 @@
 #include <dynamic_graph_bridge/sot_loader_basic.hh>
 
 #include "log.hh"
+#include <ros/ros.h>
+#include <control_toolbox/pid.h>
 
 namespace talos_sot_controller 
 {
   enum SotControlMode { POSITION, EFFORT};
 
+  class XmlrpcHelperException : public ros::Exception
+  {
+  public:
+    XmlrpcHelperException(const std::string& what)
+      : ros::Exception(what) {}
+  };
+
+  
+  struct EffortControlPDMotorControlData
+  {
+    control_toolbox::Pid pid_controller;
+
+    //double p_gain,d_gain,i_gain;
+    double prev;
+    double vel_prev;
+    double des_pos;
+    double integ_err;
+
+    EffortControlPDMotorControlData();
+    //    void read_from_xmlrpc_value(XmlRpc::XmlRpcValue &aXRV);
+    void read_from_xmlrpc_value(const std::string &prefix);
+  };
   /**
      This class encapsulates the Stack of Tasks inside the ros-control infra-structure.
      
@@ -109,7 +133,11 @@ namespace talos_sot_controller
 
     /// \brief The robot can controlled in effort or position mode (default).
     SotControlMode control_mode_;
-    
+
+    /// \brief Implement a PD controller for the robot when the dynamic graph
+    /// is not on.
+    std::map<std::string,EffortControlPDMotorControlData> effort_mode_pd_motors_;
+
     /// \brief Map from ros-control quantities to robot device
     /// ros-control quantities are for the sensors:
     /// * motor-angles
@@ -119,7 +147,7 @@ namespace talos_sot_controller
     /// ros-control quantities for control are:
     /// * joints
     /// * torques
-    std::map<std::string,std::string> mapFromRCToSotDevice;
+    std::map<std::string,std::string> mapFromRCToSotDevice_;
 
   public :
 
@@ -181,6 +209,9 @@ namespace talos_sot_controller
     
     /// \brief Read the control mode.
     bool readParamsControlMode(ros::NodeHandle & robot_nh);
+
+    /// \brief Read the PID information of the robot in effort mode.
+    bool readParamsEffortControlPDMotorControlData(ros::NodeHandle &robot_nh);
 
     ///@}
 
