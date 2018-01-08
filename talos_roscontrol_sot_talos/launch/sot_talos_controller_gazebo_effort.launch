@@ -6,8 +6,7 @@
   <rosparam command="load" file="$(find talos_roscontrol_sot_talos)/config/sot_talos_controller.yaml" />
   
   <!-- Spawn walking controller -->
-  <node launch-prefix="xterm -e python -m pdb"
-  	name="sot_controller_spawner"
+  <node name="sot_controller_spawner"
         pkg="talos_controller_manager" type="spawner" output="screen"
         args="sot_controller" />
 
