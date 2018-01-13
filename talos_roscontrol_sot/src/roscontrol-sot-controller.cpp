@@ -706,7 +706,15 @@ namespace talos_sot_controller
 	sotController_->nominalSetSensors(sensorsIn_);
 	sotController_->getControl(controlValues_);
       }
-    catch(std::exception &e) { throw e;}
+    catch(std::exception &e)
+      {
+	std::cerr << "Failure happened during one_iteration of RCSotController::one_iteration: std_exception" << std::endl;
+	std::cerr << "Use gdb on this line together with gdb to investiguate the problem: " <<std::endl;
+	std::cerr << __FILE__ << " " << __LINE__  << std::endl;
+	throw exc;
+
+	throw e;
+      }
 
     /// Read the control values
     readControl(controlValues_);
@@ -720,7 +728,26 @@ namespace talos_sot_controller
   {
     // Do not send any control if the dynamic graph is not started
     if (!isDynamicGraphStopped())
-      one_iteration();
+      {
+	try
+	  {
+	    one_iteration();
+	  }
+	catch (std::exception const &exc)
+	  {
+	    std::cerr << "Failure happened during one_iteration evaluation: std_exception" << std::endl;
+	    std::cerr << "Use gdb on this line together with gdb to investiguate the problem: " <<std::endl;
+	    std::cerr << __FILE__ << " " << __LINE__  << std::endl;
+	    throw exc;
+	  }
+	catch (...)
+	  {
+	    std::cerr << "Failure happened during one_iteration evaluation: unknown exception" << std::endl;
+	    std::cerr << "Use gdb on this line together with gdb to investiguate the problem: " <<std::endl;
+	    std::cerr << __FILE__ << " " << __LINE__  << std::endl;
+	    throw exc;
+	  }
+      }
     else
       // But in effort mode it means that we are sending 0
       // Therefore implements a default PD controller on the system.
