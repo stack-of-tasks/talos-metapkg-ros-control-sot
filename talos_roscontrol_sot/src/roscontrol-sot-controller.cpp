@@ -711,8 +711,6 @@ namespace talos_sot_controller
 	std::cerr << "Failure happened during one_iteration of RCSotController::one_iteration: std_exception" << std::endl;
 	std::cerr << "Use gdb on this line together with gdb to investiguate the problem: " <<std::endl;
 	std::cerr << __FILE__ << " " << __LINE__  << std::endl;
-	throw exc;
-
 	throw e;
       }
 
