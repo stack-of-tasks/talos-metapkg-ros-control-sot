@@ -28,7 +28,6 @@ cache:
     - make checkout
     - make install
     - cd work.*/${PROJECT}*/
-    - make test
   except:
     - gh-pages
 
