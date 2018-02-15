@@ -295,7 +295,7 @@ namespace talos_sot_controller
 	      }
 	    else
 	      ROS_INFO("joint %s not in /sot_controller/effort_control_pd_motor_init/gains\n",
-		       joints_name_[i]);
+		       joints_name_[i].c_str());
 	  }
 	return true;
       }
@@ -711,7 +711,6 @@ namespace talos_sot_controller
 	std::cerr << "Failure happened during one_iteration of RCSotController::one_iteration: std_exception" << std::endl;
 	std::cerr << "Use gdb on this line together with gdb to investiguate the problem: " <<std::endl;
 	std::cerr << __FILE__ << " " << __LINE__  << std::endl;
-	throw e;
       }
 
     /// Read the control values
@@ -743,7 +742,6 @@ namespace talos_sot_controller
 	    std::cerr << "Failure happened during one_iteration evaluation: unknown exception" << std::endl;
 	    std::cerr << "Use gdb on this line together with gdb to investiguate the problem: " <<std::endl;
 	    std::cerr << __FILE__ << " " << __LINE__  << std::endl;
-	    throw exc;
 	  }
       }
     else
