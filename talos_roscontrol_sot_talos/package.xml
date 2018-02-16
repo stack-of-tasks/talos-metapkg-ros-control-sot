@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>talos_roscontrol_sot_talos</name>
-  <version>0.0.5</version>
+  <version>0.0.6</version>
   <description>Wrapping Stack-of-tasks for Talos in ros-control</description>
 
   <!-- Maintainer email --> 
