@@ -35,10 +35,13 @@
 #define ODEBUG4FULL(x)
 #define ODEBUG4(x)
 
+/// lhi: nickname for local_hardware_interface
+/// Depends if we are on the real robot or not.
+
 #ifdef REAL_ROBOT
-using namespace hardware_interface;
+using namespace lhi=hardware_interface;
 #else
-using namespace talos_hardware_interface;
+using namespace lhi=talos_hardware_interface;
 #endif
 
 using namespace rc_sot_system;
@@ -47,7 +50,6 @@ namespace talos_sot_controller
 {
   typedef std::map<std::string,std::string>::iterator it_map_rt_to_sot;
 
- -
   EffortControlPDMotorControlData::EffortControlPDMotorControlData()
   {
     prev = 0.0; vel_prev = 0.0; des_pos=0.0;
@@ -86,11 +88,7 @@ namespace talos_sot_controller
   }
 
   bool RCSotController::
-#ifdef REAL_ROBOT  
-  initRequest (hardware_interface::RobotHW * robot_hw,
-#else
-  initRequest (talos_hardware_interface::RobotHW * robot_hw,	       
-#endif	       
+  initRequest (lhi::RobotHW * robot_hw,
 	       ros::NodeHandle &robot_nh,
 	       ros::NodeHandle &controller_nh,
 	       std::set<std::string> & claimed_resources)
@@ -129,11 +127,7 @@ namespace talos_sot_controller
   }
   
   bool RCSotController::
-#ifdef REAL_ROBOT	       
-  initInterfaces(hardware_interface::RobotHW * robot_hw,
-#else
-  initInterfaces(talos_hardware_interface::RobotHW * robot_hw,		 
-#endif		 
+  initInterfaces(lhi::RobotHW * robot_hw,
 		 ros::NodeHandle &,
 		 ros::NodeHandle &,
 		 std::set<std::string> & claimed_resources)
@@ -815,18 +809,10 @@ namespace talos_sot_controller
     //return type_name_;
     if (control_mode_==POSITION)
       return hardware_interface::internal::
-	#ifdef REAL_ROBOT
-	demangledTypeName<hardware_interface::PositionJointInterface>();
-        #else
-    	demangledTypeName<talos_hardware_interface::PositionJointInterface>();
-	#endif
+	demangledTypeName<lhi::PositionJointInterface>();
     else if (control_mode_==EFFORT)
       return hardware_interface::internal::
-	#ifdef REAL_ROBOT
-	demangledTypeName<hardware_interface::EffortJointInterface>();
-        #else
-        demangledTypeName<talos_hardware_interface::EffortJointInterface>();
-	#endif
+	demangledTypeName<lhi::EffortJointInterface>();
     std::string voidstring("");
     return voidstring;
   }
