@@ -9,4 +9,117 @@ sot_controller:
   map_rc_to_sot_device: { motor-angles: motor-angles ,
   joint-angles: joint-angles, velocities: velocities, forces: forces, currents: currents,
   torques: torques, cmd-joints: control, cmd-effort: control, accelerometer_0: accelerometer_0, gyrometer_0: gyrometer_0 }
+    effort_control_pd_motor_init:
+	- name: leg_left_1_joint
+	  p_gain: 0.0
+	  d_gain: 0.0
+	  des_pos: 0.0
+	- name: leg_left_2_joint
+	  p_gain: 0.0
+	  d_gain: 0.0
+	  des_pos: 0.0
+	- name: leg_left_3_joint
+	  p_gain: 0.0
+	  d_gain: 0.0
+	  des_pos: 0.0
+	- name: leg_left_4_joint
+	  p_gain: 0.0
+	  d_gain: 0.0
+	  des_pos: 0.0
+	- name: leg_left_5_joint
+	  p_gain: 0.0
+	  d_gain: 0.0
+	  des_pos: 0.0
+	- name: leg_left_6_joint
+	  p_gain: 0.0
+	  d_gain: 0.0
+	  des_pos: 0.0	  
+	- name: leg_right_1_joint
+	  p_gain: 0.0
+	  d_gain: 0.0
+	  des_pos: 0.0
+	- name: leg_right_2_joint
+	  p_gain: 0.0
+	  d_gain: 0.0
+	  des_pos: 0.0
+	- name: leg_right_3_joint
+	  p_gain: 0.0
+	  d_gain: 0.0
+	  des_pos: 0.0
+	- name: leg_right_4_joint
+	  p_gain: 0.0
+	  d_gain: 0.0
+	  des_pos: 0.0
+	- name: leg_right_5_joint
+	  p_gain: 0.0
+	  d_gain: 0.0
+	  des_pos: 0.0
+	- name: leg_right_6_joint
+	  p_gain: 0.0
+	  d_gain: 0.0
+	  des_pos: 0.0	  
+	- name: torso_1_joint
+	  p_gain: 0.0
+	  d_gain: 0.0
+	  des_pos: 0.0
+	- name: torso_2_joint
+	  p_gain: 0.0
+	  d_gain: 0.0
+	  des_pos: 0.0
+	- name: arm_left_1_joint
+	  p_gain: 0.0
+	  d_gain: 0.0
+	  des_pos: 0.0
+	- name: arm_left_2_joint
+	  p_gain: 0.0
+	  d_gain: 0.0
+	  des_pos: 0.0
+	- name: arm_left_3_joint
+	  p_gain: 0.0
+	  d_gain: 0.0
+	  des_pos: 0.0
+	- name: arm_left_4_joint
+	  p_gain: 0.0
+	  d_gain: 0.0
+	  des_pos: 0.0
+	- name: arm_left_5_joint
+	  p_gain: 0.0
+	  d_gain: 0.0
+	  des_pos: 0.0
+	- name: arm_left_6_joint
+	  p_gain: 0.0
+	  d_gain: 0.0
+	  des_pos: 0.0
+	- name: arm_left_7_joint
+	  p_gain: 0.0
+	  d_gain: 0.0
+	  des_pos: 0.0	  
+	- name: arm_right_1_joint
+	  p_gain: 0.0
+	  d_gain: 0.0
+	  des_pos: 0.0
+	- name: arm_right_2_joint
+	  p_gain: 0.0
+	  d_gain: 0.0
+	  des_pos: 0.0
+	- name: arm_right_3_joint
+	  p_gain: 0.0
+	  d_gain: 0.0
+	  des_pos: 0.0
+	- name: arm_right_4_joint
+	  p_gain: 0.0
+	  d_gain: 0.0
+	  des_pos: 0.0
+	- name: arm_right_5_joint
+	  p_gain: 0.0
+	  d_gain: 0.0
+	  des_pos: 0.0
+	- name: arm_right_6_joint
+	  p_gain: 0.0
+	  d_gain: 0.0
+	  des_pos: 0.0	  
+	- name: arm_right_7_joint
+	  p_gain: 0.0
+	  d_gain: 0.0
+	  des_pos: 0.0	  
   control_mode: EFFORT 
