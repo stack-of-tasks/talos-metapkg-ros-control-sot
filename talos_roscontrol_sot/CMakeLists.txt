@@ -26,7 +26,7 @@ include(cmake/python.cmake)
 
 #project(talos_roscontrol_sot)
 
-OPTION(REAL_ROBOT "Compiling this package for the real robot" FALSE)
+OPTION(REAL_ROBOT "Compiling this package for the real robot" TRUE)
 
 find_package(PkgConfig REQUIRED)
 
@@ -43,6 +43,9 @@ if(${REAL_ROBOT})
     controller_interface
     pal_hardware_interfaces
     )
+  
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DREAL_ROBOT")
+
 else(${REAL_ROBOT})
   set(additional_catkin_required_components
     talos_controller_interface
