@@ -35,13 +35,31 @@
 #define ODEBUG4FULL(x)
 #define ODEBUG4(x)
 
+#ifdef REAL_ROBOT
 using namespace hardware_interface;
+#else
+using namespace talos_hardware_interface;
+#endif
+
 using namespace rc_sot_system;
 
 namespace talos_sot_controller  
 {
   typedef std::map<std::string,std::string>::iterator it_map_rt_to_sot;
+
+ -
+  EffortControlPDMotorControlData::EffortControlPDMotorControlData()
+  {
+    prev = 0.0; vel_prev = 0.0; des_pos=0.0;
+    integ_err=0.0;
+  }
   
+  void EffortControlPDMotorControlData::read_from_xmlrpc_value
+  (const std::string &prefix)
+  {
+    pid_controller.initParam(prefix);
+  }
+   
   RCSotController::
   RCSotController():
     // Store 32 DoFs for 5 minutes (1 Khz: 5*60*1000)
@@ -68,7 +86,11 @@ namespace talos_sot_controller
   }
 
   bool RCSotController::
-  initRequest (hardware_interface::RobotHW * robot_hw, 
+#ifdef REAL_ROBOT  
+  initRequest (hardware_interface::RobotHW * robot_hw,
+#else
+  initRequest (talos_hardware_interface::RobotHW * robot_hw,	       
+#endif	       
 	       ros::NodeHandle &robot_nh,
 	       ros::NodeHandle &controller_nh,
 	       std::set<std::string> & claimed_resources)
@@ -86,16 +108,42 @@ namespace talos_sot_controller
 
     /// If we are in effort mode then the device should not do any integration.
     if (control_mode_==EFFORT)
-      sotController_->setNoIntegration();
+      {
+	sotController_->setNoIntegration();
+	/// Fill desired position during the phase where the robot is waiting.
+	for(unsigned int idJoint=0;idJoint<joints_.size();idJoint++)
+	  {
+	    std::string joint_name = joints_name_[idJoint];
+	    std::map<std::string,EffortControlPDMotorControlData>::iterator
+	      search_ecpd = effort_mode_pd_motors_.find(joint_name);
+	    
+	    if (search_ecpd!=effort_mode_pd_motors_.end())
+	      {
+		EffortControlPDMotorControlData & ecpdcdata =
+		  search_ecpd->second;
+		ecpdcdata.des_pos = joints_[idJoint].getPosition();
+	      }
+	  }
+      }
     return true;
   }
   
   bool RCSotController::
+#ifdef REAL_ROBOT	       
   initInterfaces(hardware_interface::RobotHW * robot_hw,
+#else
+  initInterfaces(talos_hardware_interface::RobotHW * robot_hw,		 
+#endif		 
 		 ros::NodeHandle &,
 		 ros::NodeHandle &,
 		 std::set<std::string> & claimed_resources)
   {
+    std::string lns;
+    #ifdef REAL_ROBOT
+    lns="hardware_interface";
+    #else
+    lns="talos_hardware_interface";
+    #endif
     // Check if construction finished cleanly
     if (state_!=CONSTRUCTED)
       {
@@ -107,8 +155,8 @@ namespace talos_sot_controller
     if (! pos_iface_)
       {
 	ROS_ERROR("This controller requires a hardware interface of type '%s'."
-		  " Make sure this is registered in the hardware_interface::RobotHW class.",
-		  getHardwareInterfaceType().c_str());
+		  " Make sure this is registered in the %s::RobotHW class.",
+		  getHardwareInterfaceType().c_str(), lns.c_str());
 	return false ;
       }
 
@@ -117,8 +165,8 @@ namespace talos_sot_controller
     if (! effort_iface_)
       {
 	ROS_ERROR("This controller requires a hardware interface of type '%s'."
-		  " Make sure this is registered in the hardware_interface::RobotHW class.",
-		  getHardwareInterfaceType().c_str());
+		  " Make sure this is registered in the %s::RobotHW class.",
+		  getHardwareInterfaceType().c_str(),lns.c_str());
 	    return false ;
       }
 
@@ -127,8 +175,8 @@ namespace talos_sot_controller
     if (! ft_iface_ )
       {
 	ROS_ERROR("This controller requires a hardware interface of type '%s '. " 
-		  " Make sure this is registered inthe hardware_interface::RobotHW class.",
-		  internal :: demangledTypeName<ForceTorqueSensorInterface>().c_str());
+		  " Make sure this is registered inthe %s::RobotHW class.",
+		  internal :: demangledTypeName<ForceTorqueSensorInterface>().c_str(),lns.c_str());
 	return false ;
       }
     // Get a pointer to the IMU sensor interface
@@ -136,8 +184,8 @@ namespace talos_sot_controller
     if (! imu_iface_)
       {
 	ROS_ERROR("This controller requires a hardware interface of type '%s'."
-		  " Make sure this is registered in the thardware_interface::RobotHW class.",
-		  internal :: demangledTypeName<ImuSensorInterface>().c_str());
+		  " Make sure this is registered in the %s::RobotHW class.",
+		  internal :: demangledTypeName<ImuSensorInterface>().c_str(),lns.c_str());
 	return false ;
       }
 
@@ -149,8 +197,8 @@ namespace talos_sot_controller
 	if (!act_temp_iface_)
 	  {
 	    ROS_ERROR("This controller requires a hardware interface of type '%s'."
-		      " Make sure this is registered in the hardware_interface::RobotHW class.",
-		      internal :: demangledTypeName<ActuatorTemperatureSensorInterface>().c_str());
+		      " Make sure this is registered in the %s::RobotHW class.",
+		      internal :: demangledTypeName<ActuatorTemperatureSensorInterface>().c_str(),lns.c_str());
 	    return false ;	  
 	  }
       }
@@ -234,6 +282,47 @@ namespace talos_sot_controller
     return true;
   }
 
+  bool RCSotController::
+  readParamsEffortControlPDMotorControlData(ros::NodeHandle &robot_nh)
+  {
+    // Read libname
+    if (robot_nh.hasParam("/sot_controller/effort_control_pd_motor_init/gains"))
+      {
+       XmlRpc::XmlRpcValue xml_rpc_ecpd_init;
+       robot_nh.getParamCached("/sot_controller/effort_control_pd_motor_init/gains",
+                               xml_rpc_ecpd_init);
+       
+       ROS_INFO("/sot_controller/effort_control_pd_motor_init/gains: %d %d %d\n",
+                xml_rpc_ecpd_init.getType(),XmlRpc::XmlRpcValue::TypeArray,XmlRpc::XmlRpcValue::TypeStruct);
+       effort_mode_pd_motors_.clear();
+       
+       for (int i=0;i<joints_name_.size();i++)
+         {
+           if (xml_rpc_ecpd_init.hasMember(joints_name_[i]))
+             {
+               /*
+               XmlRpc::XmlRpcValue &aDataSet= xml_rpc_ecpd_init[joints_name_[i]];
+               ROS_INFO("/sot_controller/effort_control_pd_motor_init %s type: %d\n",joints_name_[i],aDataSet.getType());
+               if (aDataSet.getType()!=XmlRpc::XmlRpcValue::TypeStruct)
+                 {
+                   ROS_ERROR("In /sot_controller/effort_control_pd_motor_init/gains/%s  not a struct"
+                             ,joints_name_[i]);
+                   throw XmlrpcHelperException("Pb in readParamsEffortControlPDMotorControlData");
+                 }
+               */
+               std::string prefix= "/sot_controller/effort_control_pd_motor_init/gains/" + joints_name_[i];
+               effort_mode_pd_motors_[joints_name_[i]].read_from_xmlrpc_value(prefix);
+             }
+           else
+             ROS_INFO("joint %s not in /sot_controller/effort_control_pd_motor_init/gains\n",
+                      joints_name_[i].c_str());
+         }
+       return true;
+      }
+    
+    ROS_ERROR("No parameter /sot_controller/effort_controler_pd_motor_init");
+    return false;
+  }
 
   bool RCSotController::
   readParamsFromRCToSotDevice(ros::NodeHandle &robot_nh)
@@ -241,12 +330,13 @@ namespace talos_sot_controller
     // Read libname
     if (robot_nh.hasParam("/sot_controller/map_rc_to_sot_device")) 
       {
-	if (robot_nh.getParam("/sot_controller/map_rc_to_sot_device",mapFromRCToSotDevice))
+	if (robot_nh.getParam("/sot_controller/map_rc_to_sot_device",
+			      mapFromRCToSotDevice_))
 	  {
 	    /// TODO: Check if the mapping is complete wrt to the interface and the mapping.
 	    ROS_INFO_STREAM("Loading map rc to sot device: ");
-	    for (it_map_rt_to_sot it = mapFromRCToSotDevice.begin(); 
-		 it != mapFromRCToSotDevice.end(); ++it) 
+	    for (it_map_rt_to_sot it = mapFromRCToSotDevice_.begin(); 
+		 it != mapFromRCToSotDevice_.end(); ++it) 
 	      ROS_INFO_STREAM( it->first << ", " << it->second);
 	  }
 	else
@@ -347,6 +437,10 @@ namespace talos_sot_controller
     /// Calls readParamsFromRCToSotDevice
     // Mapping from ros-controll to sot device
     readParamsFromRCToSotDevice(robot_nh);
+
+    if (control_mode_==EFFORT)
+      readParamsEffortControlPDMotorControlData(robot_nh);
+
     return true;
   }
 
@@ -455,9 +549,9 @@ namespace talos_sot_controller
   {
     /// Tries to find the mapping from the local validation
     /// to the SoT device.
-    it_map_rt_to_sot it_mapRC2Sot= mapFromRCToSotDevice.find(title);
+    it_map_rt_to_sot it_mapRC2Sot= mapFromRCToSotDevice_.find(title);
     /// If the mapping is found
-    if (it_mapRC2Sot!=mapFromRCToSotDevice.end())
+    if (it_mapRC2Sot!=mapFromRCToSotDevice_.end())
       {
 	/// Expose the data to the SoT device.
 	std::string lmapRC2Sot = it_mapRC2Sot->second;
@@ -608,8 +702,8 @@ namespace talos_sot_controller
     else if (control_mode_==EFFORT)
       cmdTitle="cmd-effort";
 
-    it_map_rt_to_sot it_mapRC2Sot= mapFromRCToSotDevice.find(cmdTitle);
-    if (it_mapRC2Sot!=mapFromRCToSotDevice.end())
+    it_map_rt_to_sot it_mapRC2Sot= mapFromRCToSotDevice_.find(cmdTitle);
+    if (it_mapRC2Sot!=mapFromRCToSotDevice_.end())
       {
 	std::string lmapRC2Sot = it_mapRC2Sot->second;
 	command_ = controlValues[lmapRC2Sot].getValues();
@@ -643,11 +737,64 @@ namespace talos_sot_controller
   }
 
   void RCSotController::
-  update(const ros::Time&, const ros::Duration& )
-  {
-    if (!isDynamicGraphStopped())
-      one_iteration();
-  }
+  update(const ros::Time&, const ros::Duration& period)
+   {
+    // Do not send any control if the dynamic graph is not started
+     if (!isDynamicGraphStopped())
+      {
+       try
+         {
+           one_iteration();
+         }
+       catch (std::exception const &exc)
+         {
+           std::cerr << "Failure happened during one_iteration evaluation: std_exception" << std::endl;
+           std::cerr << "Use gdb on this line together with gdb to investiguate the problem: " <<std::endl;
+           std::cerr << __FILE__ << " " << __LINE__  << std::endl;
+           throw exc;
+         }
+       catch (...)
+         {
+           std::cerr << "Failure happened during one_iteration evaluation: unknown exception" << std::endl;
+           std::cerr << "Use gdb on this line together with gdb to investiguate the problem: " <<std::endl;
+           std::cerr << __FILE__ << " " << __LINE__  << std::endl;
+         }
+      }
+    else
+      // But in effort mode it means that we are sending 0
+      // Therefore implements a default PD controller on the system.
+      if (control_mode_==EFFORT)
+       {
+         // ROS_INFO("Compute command for effort mode: %d %d",joints_.size(),effort_mode_pd_motors_.size());
+         for(unsigned int idJoint=0;idJoint<joints_.size();idJoint++)
+           {
+             std::string joint_name = joints_name_[idJoint];
+             std::map<std::string,EffortControlPDMotorControlData>::iterator
+               search_ecpd = effort_mode_pd_motors_.find(joint_name);
+             
+             if (search_ecpd!=effort_mode_pd_motors_.end())
+               {
+                 EffortControlPDMotorControlData & ecpdcdata =
+                   search_ecpd->second;
+                 double vel_err = 0 - joints_[idJoint].getVelocity();
+                 double err = ecpdcdata.des_pos - joints_[idJoint].getPosition();
+                 
+                 ecpdcdata.integ_err +=err;
+
+                 double local_command = ecpdcdata.pid_controller.computeCommand(err,vel_err,period);
+                 // Apply command
+                 control_toolbox::Pid::Gains gains = ecpdcdata.pid_controller.getGains();
+                 //ROS_INFO("command: %d %s %f %f (%f %f %f)",idJoint, joints_name_[idJoint].c_str(),
+                 //local_command, DataOneIter_.motor_angle[idJoint],
+                 //gains.p_gain_,gains.d_gain_, gains.i_gain_);
+                 joints_[idJoint].setCommand(local_command);
+                 
+                 // Update previous value.
+                 ecpdcdata.prev = DataOneIter_.motor_angle[idJoint];
+               }
+           }
+      }
+   }
   
   void RCSotController::
   starting(const ros::Time &)
@@ -668,10 +815,18 @@ namespace talos_sot_controller
     //return type_name_;
     if (control_mode_==POSITION)
       return hardware_interface::internal::
+	#ifdef REAL_ROBOT
 	demangledTypeName<hardware_interface::PositionJointInterface>();
+        #else
+    	demangledTypeName<talos_hardware_interface::PositionJointInterface>();
+	#endif
     else if (control_mode_==EFFORT)
       return hardware_interface::internal::
+	#ifdef REAL_ROBOT
 	demangledTypeName<hardware_interface::EffortJointInterface>();
+        #else
+        demangledTypeName<talos_hardware_interface::EffortJointInterface>();
+	#endif
     std::string voidstring("");
     return voidstring;
   }
