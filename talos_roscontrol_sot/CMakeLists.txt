@@ -24,7 +24,7 @@ include(cmake/ros.cmake)
 include(cmake/GNUInstallDirs.cmake)
 include(cmake/python.cmake)
 
-project(talos_roscontrol_sot)
+#project(talos_roscontrol_sot)
 
 find_package(PkgConfig REQUIRED)
 
