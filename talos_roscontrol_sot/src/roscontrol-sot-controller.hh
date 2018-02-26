@@ -88,11 +88,13 @@ namespace talos_sot_controller
    */
 #ifdef REAL_ROBOT
   namespace lhi = hardware_interface;
+  namespace lci = controller_interface;
 #else
   namespace lhi = talos_hardware_interface;
+  namespace lci = talos_controller_interface;
 #endif
   
-  class RCSotController : public controller_interface::ControllerBase,
+  class RCSotController : public lci::ControllerBase,
 			       SotLoaderBasic
   {
     
@@ -149,7 +151,7 @@ namespace talos_sot_controller
     /// \brief The robot can controlled in effort or position mode (default).
     SotControlMode control_mode_;
 
-   -
+   
     /// \brief Implement a PD controller for the robot when the dynamic graph
     /// is not on.
     std::map<std::string,EffortControlPDMotorControlData> effort_mode_pd_motors_;

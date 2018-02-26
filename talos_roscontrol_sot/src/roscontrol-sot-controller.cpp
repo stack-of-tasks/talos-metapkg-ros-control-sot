@@ -39,10 +39,11 @@
 /// Depends if we are on the real robot or not.
 
 #ifdef REAL_ROBOT
-using namespace lhi=hardware_interface;
+namespace lhi=hardware_interface;
 #else
-using namespace lhi=talos_hardware_interface;
+namespace lhi=talos_hardware_interface;
 #endif
+using namespace lhi;
 
 using namespace rc_sot_system;
 
@@ -808,10 +809,10 @@ namespace talos_sot_controller
   {
     //return type_name_;
     if (control_mode_==POSITION)
-      return hardware_interface::internal::
+      return lhi::internal::
 	demangledTypeName<lhi::PositionJointInterface>();
     else if (control_mode_==EFFORT)
-      return hardware_interface::internal::
+      return lhi::internal::
 	demangledTypeName<lhi::EffortJointInterface>();
     std::string voidstring("");
     return voidstring;
@@ -819,5 +820,5 @@ namespace talos_sot_controller
   
 
   PLUGINLIB_EXPORT_CLASS(talos_sot_controller::RCSotController, 
-			 controller_interface::ControllerBase);
+			 lci::ControllerBase);
 }
