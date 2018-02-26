@@ -35,17 +35,25 @@
 #include <string>
 #include <map>
 
+#ifdef REAL_ROBOT
+#include <controller_interface/controller.h>
+#include <hardware_interface/joint_command_interface.h>
+#include <hardware_interface/imu_sensor_interface.h>
+#include <hardware_interface/force_torque_sensor_interface.h>
+#include <pal_hardware_interfaces/actuator_temperature_interface.h>
+#else
 #include <talos_controller_interface/controller.h>
 #include <talos_hardware_interface/joint_command_interface.h>
 #include <talos_hardware_interface/imu_sensor_interface.h>
 #include <talos_hardware_interface/force_torque_sensor_interface.h>
 #include <talos_pal_hardware_interfaces/actuator_temperature_interface.h>
+#endif
 
 #include <dynamic_graph_bridge/sot_loader_basic.hh>
-
-#include "log.hh"
 #include <ros/ros.h>
 #include <control_toolbox/pid.h>
+
+#include "log.hh"
 
 namespace talos_sot_controller 
 {
@@ -73,11 +81,20 @@ namespace talos_sot_controller
     //    void read_from_xmlrpc_value(XmlRpc::XmlRpcValue &aXRV);
     void read_from_xmlrpc_value(const std::string &prefix);
   };
+
   /**
      This class encapsulates the Stack of Tasks inside the ros-control infra-structure.
      
    */
-  class RCSotController : public talos_controller_interface::ControllerBase,
+#ifdef REAL_ROBOT
+  namespace lhi = hardware_interface;
+  namespace lci = controller_interface;
+#else
+  namespace lhi = talos_hardware_interface;
+  namespace lci = talos_controller_interface;
+#endif
+  
+  class RCSotController : public lci::ControllerBase,
 			       SotLoaderBasic
   {
     
@@ -92,33 +109,33 @@ namespace talos_sot_controller
     /// @{ \name Ros-control related fields
     
     /// \brief Vector of joint handles.
-    std::vector<talos_hardware_interface::JointHandle> joints_;
+    std::vector<lhi::JointHandle> joints_;
     std::vector<std::string> joints_name_;
 
     /// \brief Vector towards the IMU.
-    std::vector<talos_hardware_interface::ImuSensorHandle> imu_sensor_;
+    std::vector<lhi::ImuSensorHandle> imu_sensor_;
 
     /// \brief Vector of 6D force sensor.
-    std::vector<talos_hardware_interface::ForceTorqueSensorHandle> ft_sensors_;
+    std::vector<lhi::ForceTorqueSensorHandle> ft_sensors_;
     
     /// \brief Vector of temperature sensors for the actuators.
-    std::vector<talos_hardware_interface::ActuatorTemperatureSensorHandle> 
+    std::vector<lhi::ActuatorTemperatureSensorHandle> 
     act_temp_sensors_;
     
     /// \brief Interface to the joints controlled in position.
-    talos_hardware_interface::PositionJointInterface * pos_iface_;
+    lhi::PositionJointInterface * pos_iface_;
 
     /// \brief Interface to the joints controlled in force.
-    talos_hardware_interface::EffortJointInterface * effort_iface_;
+    lhi::EffortJointInterface * effort_iface_;
     
     /// \brief Interface to the sensors (IMU).
-    talos_hardware_interface::ImuSensorInterface* imu_iface_;
+    lhi::ImuSensorInterface* imu_iface_;
 
     /// \brief Interface to the sensors (Force).
-    talos_hardware_interface::ForceTorqueSensorInterface* ft_iface_;
+    lhi::ForceTorqueSensorInterface* ft_iface_;
     
     /// \brief Interface to the actuator temperature sensor.
-    talos_hardware_interface::ActuatorTemperatureSensorInterface  * act_temp_iface_;
+    lhi::ActuatorTemperatureSensorInterface  * act_temp_iface_;
 
     /// @}
 
@@ -134,10 +151,11 @@ namespace talos_sot_controller
     /// \brief The robot can controlled in effort or position mode (default).
     SotControlMode control_mode_;
 
+   
     /// \brief Implement a PD controller for the robot when the dynamic graph
     /// is not on.
     std::map<std::string,EffortControlPDMotorControlData> effort_mode_pd_motors_;
-
+ 
     /// \brief Map from ros-control quantities to robot device
     /// ros-control quantities are for the sensors:
     /// * motor-angles
@@ -155,7 +173,7 @@ namespace talos_sot_controller
 
     /// \brief Read the configuration files, 
     /// claims the request to the robot and initialize the Stack-Of-Tasks.
-    bool initRequest (talos_hardware_interface::RobotHW * robot_hw, 
+    bool initRequest (lhi::RobotHW * robot_hw, 
 		      ros::NodeHandle &robot_nh,
 		      ros::NodeHandle &controller_nh,
 		      std::set<std::string> & claimed_resources);
@@ -178,7 +196,7 @@ namespace talos_sot_controller
 
   protected:
     /// Initialize the roscontrol interfaces
-    bool initInterfaces(talos_hardware_interface::RobotHW * robot_hw,
+    bool initInterfaces(lhi::RobotHW * robot_hw,
 			ros::NodeHandle &,
 			ros::NodeHandle &,
 			std::set<std::string> & claimed_resources);
