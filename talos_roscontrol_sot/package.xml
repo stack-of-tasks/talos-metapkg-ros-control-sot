@@ -48,6 +48,6 @@
   <run_depend>dynamic_graph_bridge</run_depend>
   <!-- The export tag contains other, unspecified, tags -->
   <export>
-    <talos_controller_interface plugin="${prefix}/config/roscontrol_sot_controller_plugins.xml"/>
+    <talos_controller_interface plugin="${prefix}/config/gazebo_roscontrol_sot_controller_plugins.xml"/>
   </export>
 </package>
