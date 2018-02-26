@@ -26,6 +26,8 @@ include(cmake/python.cmake)
 
 #project(talos_roscontrol_sot)
 
+OPTION(REAL_ROBOT "Compiling this package for the real robot" FALSE)
+
 find_package(PkgConfig REQUIRED)
 
 add_required_dependency(bullet)
@@ -36,6 +38,17 @@ add_required_dependency(bullet)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
+if(${REAL_ROBOT})
+  set(additional_catkin_required_components
+    controller_interface
+    pal_hardware_interfaces
+    )
+else(${REAL_ROBOT})
+  set(additional_catkin_required_components
+    talos_controller_interface
+    talos_pal_hardware_interfaces
+    )
+endif(${REAL_ROBOT})
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
@@ -44,8 +57,7 @@ find_package(catkin REQUIRED COMPONENTS
   control_msgs
   sensor_msgs
   realtime_tools
-  talos_controller_interface
-  talos_pal_hardware_interfaces
+  ${additional_catkin_required_components}
 )
 
 ## LAAS cmake submodule part
