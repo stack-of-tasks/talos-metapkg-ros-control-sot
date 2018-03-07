@@ -11,6 +11,11 @@
    <!-- Load robot model. -->
   <param name="robot_description"
 	 textfile="$(find talos_data)/urdf/talos_reduced.urdf" />
+
+
+   <!-- Load robot sot params. -->
+  <rosparam command="load"
+	 file="$(find sot_pyrene_bringup)/sot/pyrene.yaml" />
   
   <machine name="geometric_simu_machine"
            address="localhost">
