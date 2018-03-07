@@ -13,20 +13,21 @@ catkin_package()
 
 INSTALL(
   FILES 
-  DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/config
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/config
 )
 
 INSTALL(
   FILES
-  launch/geometric-simu.launch
-  DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/launch
+  launch/geometric_simu.launch
+  launch/geometric_simu_context.launch
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
 )
 
 
 INSTALL(
   FILES
   package.xml
-  DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/
 )
 
 #setup_project_finalize()
