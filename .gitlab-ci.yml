@@ -39,3 +39,7 @@ robotpkg-talos-metapkg-ros-control-sot-14.04:
 robotpkg-talos-metapkg-ros-control-sot-16.04:
   <<: *robotpkg-talos-metapkg-ros-control-sot
   image: ${IMAGE}:16.04
+  
+robotpkg-talos-metapkg-ros-control-sot-dubnium:
+  <<: *robotpkg-talos-metapkg-ros-control-sot
+  image: ${IMAGE}:dubnium
