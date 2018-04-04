@@ -9,4 +9,4 @@ sot_controller:
   map_rc_to_sot_device: { motor-angles: motor-angles ,
   joint-angles: joint-angles, velocities: velocities,
   torques: torques, cmd-positions: control, cmd-effort: control }
-  control_mode: EFFORT
+  control_mode: POSITION
