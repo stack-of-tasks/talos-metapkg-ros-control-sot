@@ -11,3 +11,4 @@ sot_controller:
   joint-angles: joint-angles, velocities: velocities,
   torques: torques, cmd-joints: control, cmd-effort: control }
   control_mode: POSITION
+  dt: 0.001

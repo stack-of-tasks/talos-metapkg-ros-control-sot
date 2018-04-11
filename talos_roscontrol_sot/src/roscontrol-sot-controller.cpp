@@ -69,7 +69,8 @@ namespace talos_sot_controller
     // -> 124 Mo of data.
     type_name_("RCSotController"),
     simulation_mode_(false),
-    control_mode_(POSITION)
+    control_mode_(POSITION),
+    accumulated_time_(0.0)
   {
     RESETDEBUG4();
   }
@@ -407,6 +408,20 @@ namespace talos_sot_controller
   }
 
   bool RCSotController::
+  readParamsdt(ros::NodeHandle &robot_nh)
+  {
+    /// Read /sot_controller/dt to know what is the control period
+    if (robot_nh.hasParam("/sot_controller/dt"))
+      {
+	robot_nh.getParam("/sot_controller/dt",dt_);
+	ROS_INFO_STREAM("dt: " << dt_);
+	return true;
+      }
+    ROS_ERROR("You need to define a control period in param /sot_controller/dt");
+    return false;
+  }
+  
+  bool RCSotController::
   readParams(ros::NodeHandle &robot_nh)
   {
 
@@ -433,6 +448,10 @@ namespace talos_sot_controller
     // Mapping from ros-controll to sot device
     readParamsFromRCToSotDevice(robot_nh);
 
+    /// Get control perioud
+    if (!readParamsdt(robot_nh))
+      return false;
+    
     if (control_mode_==EFFORT)
       readParamsEffortControlPDMotorControlData(robot_nh);
 
@@ -713,6 +732,9 @@ namespace talos_sot_controller
 
   void RCSotController::one_iteration()
   {
+    // Chrono start
+    RcSotLog.start_it();
+    
     /// Update the sensors.
     fillSensors();
 
@@ -726,7 +748,10 @@ namespace talos_sot_controller
 
     /// Read the control values
     readControl(controlValues_);
-
+    
+    // Chrono stop.
+    RcSotLog.stop_it();
+    
     /// Store everything in Log.
     RcSotLog.record(DataOneIter_);
   }
@@ -739,7 +764,14 @@ namespace talos_sot_controller
       {
        try
          {
-           one_iteration();
+	   double periodInSec = period.toSec();
+	   if (periodInSec+accumulated_time_>dt_)
+	     {
+	       one_iteration();
+	       accumulated_time_ = 0.0;
+	     }
+	   else
+	     accumulated_time_ += periodInSec;
          }
        catch (std::exception const &exc)
          {

@@ -167,6 +167,9 @@ namespace talos_sot_controller
     /// * torques
     std::map<std::string,std::string> mapFromRCToSotDevice_;
 
+    /// To be able to subsample control period.
+    double accumulated_time_;
+    
   public :
 
     RCSotController ();
@@ -231,6 +234,8 @@ namespace talos_sot_controller
     /// \brief Read the PID information of the robot in effort mode.
     bool readParamsEffortControlPDMotorControlData(ros::NodeHandle &robot_nh);
 
+    /// \brief Read the control period.
+    bool readParamsdt(ros::NodeHandle & robot_nh);
     ///@}
 
     /// \brief Fill the SoT map structures
@@ -266,6 +271,9 @@ namespace talos_sot_controller
     /// Map of control values
     std::map<std::string,dgs::ControlValues> controlValues_;
 
+    /// Control period
+    double dt_;
+    
     /// \brief Command send to motors
     /// Depending on control_mode it can be either
     /// position control or torque control.
