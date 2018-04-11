@@ -139,3 +139,4 @@ sot_controller:
       d_gain: 0.0
       des_pos:: 0.0      
   control_mode: EFFORT
+  dt: 0.001
