@@ -9,6 +9,7 @@
 
 #include <vector>
 #include <string>
+#include <sys/time.h>
 
 namespace rc_sot_system {
 
@@ -62,8 +63,8 @@ namespace rc_sot_system {
 
     // Circular buffer for all the data.
     DataToLog StoredData_;
-
     double timeorigin_;
+    struct timeval timeorigin_tv_;
     double time_start_it_;
     double time_stop_it_;
 

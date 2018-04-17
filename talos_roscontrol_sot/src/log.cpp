@@ -52,10 +52,11 @@ void Log::init(unsigned int nbDofs, unsigned int length)
   nbDofs_=nbDofs;
   length_=length;
   StoredData_.init(nbDofs,length);
-  struct timeval current;
-  gettimeofday(&current,0);
 
-  timeorigin_ = (double)current.tv_sec + 0.000001 * ((double)current.tv_usec);
+  gettimeofday(timeorigin_tv_,0);
+
+  timeorigin_ = (double)timeorigin_tv_.tv_sec +
+    0.000001 * ((double)timeorigin_tv_.tv_usec);
 
 }
 
@@ -97,7 +98,8 @@ void Log::record(DataToLog &aDataToLog)
   gettimeofday(&current,0);
 
   StoredData_.timestamp[lrefts_] = 
-    ((double)current.tv_sec + 0.000001 * (double)current.tv_usec) - timeorigin_;
+    ((double)(current.tv_sec - time_origin_tv_.tv_sec)
+     + 0.000001 * (double)(current.tv_usec - time_origin_tv_.tv_usec));
 
   StoredData_.duration[lrefts_] = time_stop_it_ - time_start_it_;
     
