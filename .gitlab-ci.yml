@@ -25,9 +25,8 @@ cache:
     - make checkout MASTER_REPOSITORY="dir ${CI_PROJECT_DIR}"
     - make install
     - cd work.$(hostname)/$(make show-var VARNAME=DISTNAME)
-    - make check
-    - make doc
-    - mv doc/doxygen-html ${CI_PROJECT_DIR}
+    
+    
   except:
     - gh-pages
 
@@ -40,10 +39,6 @@ robotpkg-talos-metapkg-ros-control-sot-14.04:
 robotpkg-talos-metapkg-ros-control-sot-16.04:
   <<: *robotpkg-talos-metapkg-ros-control-sot
   image: ${IMAGE}:16.04
-  artifacts:
-    expire_in: 1 day
-    paths:
-      - doxygen-html/
 
 
 robotpkg-talos-metapkg-ros-control-sot-dubnium:
