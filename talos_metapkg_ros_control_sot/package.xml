@@ -1,20 +1,20 @@
 <package>
   <name>talos_metapkg_ros_control_sot</name>
-  <version>0.0.7</version>
+  <version>0.0.8</version>
   <description>A set of packages that include sot-wrapper and talos sot params .</description>
 
   <maintainer email="olivier.stasse@laas.fr">Olivier Stasse</maintainer>
 
   <license>BSD</license>
 
-  <url type="repository">https://github.com/stack-of-tasks/roscontrol_sot</url>
+  <url type="repository">https://github.com/stack-of-tasks/talos_metapkg_roscontrol_sot</url>
 
   <author>Olivier Stasse</author>
 
   <buildtool_depend>catkin</buildtool_depend>
 
-  <run_depend>talos_roscontrol_sot</run_depend>
-  <run_depend>talos_roscontrol_sot_talos</run_depend>
+  <run_depend>roscontrol_sot</run_depend>
+  <run_depend>roscontrol_sot_talos</run_depend>
   <run_depend>realtime_tools</run_depend>
   <run_depend>control_toolbox</run_depend>
 
