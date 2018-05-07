@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(talos_roscontrol_sot_talos)
+project(roscontrol_sot_talos)
 
 find_package(PkgConfig REQUIRED)
 
@@ -35,7 +35,7 @@ catkin_package()
 # include_directories(include)
 include_directories( 
   ${catkin_INCLUDE_DIRS}
-  )
+)
 
 
 ## Add cmake target dependencies of the executable
