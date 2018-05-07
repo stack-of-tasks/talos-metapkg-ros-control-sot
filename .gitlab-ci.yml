@@ -1,16 +1,14 @@
 variables:
+  GIT_SSL_NO_VERIFY: "true"
   GIT_SUBMODULE_STRATEGY: "recursive"
   GIT_DEPTH: "3"
   NAMESPACE: pyrene-dev
   PROJECT: talos_metapkg_ros_control_sot
-  REGISTRY: gepgitlab.laas.fr:4567
-  IMAGE: "${REGISTRY}/${NAMESPACE}/${PROJECT}"
-  CCACHE_BASEDIR: "${CI_PROJECT_DIR}"
-  CCACHE_DIR: "${CI_PROJECT_DIR}/ccache"
+  IMAGE: "${CI_REGISTRY}/${NAMESPACE}/${PROJECT}"
 
 cache:
   paths:
-    - ccache
+    - build/ccache
 
 
 .robotpkg-talos-metapkg-ros-control-sot: &robotpkg-talos-metapkg-ros-control-sot
@@ -37,7 +35,6 @@ cache:
 robotpkg-talos-metapkg-ros-control-sot-14.04:
   <<: *robotpkg-talos-metapkg-ros-control-sot
   image: ${IMAGE}:14.04
-
 
 robotpkg-talos-metapkg-ros-control-sot-16.04:
   <<: *robotpkg-talos-metapkg-ros-control-sot
