@@ -41,7 +41,7 @@
   <build_depend>sensor_msgs</build_depend>
   <build_depend>realtime_tools</build_depend>
   <build_depend>cmake_modules</build_depend>
-  <build_depend>talos_roscontrol_sot</build_depend>
+  <build_depend>roscontrol_sot</build_depend>
 
   <run_depend>roscpp</run_depend>
   <run_depend>control_msgs</run_depend>
@@ -50,6 +50,6 @@
   <run_depend>rospy</run_depend>
   <run_depend>std_msgs</run_depend>
   <run_depend>cmake_modules</run_depend>
-  <run_depend>talos_roscontrol_sot</run_depend>
+  <run_depend>roscontrol_sot</run_depend>
   <!-- The export tag contains other, unspecified, tags -->
 </package>

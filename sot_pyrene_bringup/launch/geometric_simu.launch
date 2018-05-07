@@ -5,6 +5,7 @@
   <!-- Which robot are we controlling ? -->
   <arg name="robot" default="pyrene" />
   <arg name="libsot" default="libsot-pyrene-controller.so" />   
+
   <arg name="sot-launch-prefix" default="" />   
 
   <include file="$(find sot_pyrene_bringup)/launch/geometric_simu_context.launch" >
@@ -18,6 +19,7 @@
 	pkg="dynamic_graph_bridge"
 	type="geometric_simu"
         args=" --input-file $(arg libsot)" 
+
         launch-prefix="$(arg sot-launch-prefix)"
 	respawn="true">
     <param name="/sot/dg/geometric_simu" value="" />

@@ -18,15 +18,18 @@ cache:
     ROBOTPKG: talos-metapkg-ros-control-sot
     CATEGORY: wip
   before_script:
-    - mkdir -p ccache
+    - mkdir -p build/ccache
+    - cd build
+    - export CCACHE_BASEDIR=${PWD}
+    - export CCACHE_DIR=${PWD}/ccache
   script:
     - cd /root/robotpkg/${CATEGORY}/${ROBOTPKG}
     - git pull
-    - make checkout MASTER_REPOSITORY="dir ${CI_PROJECT_DIR}"
+    - echo "MASTER_REPOSITORY = git ${CI_PROJECT_DIR}" >> Makefile
+    - echo "REPOSITORY.talos-metapkg-ros-control-sot = git ${CI_PROJECT_DIR}" >> /opt/openrobots/etc/robotpkg.conf
+    - make checkout
     - make install
-    - cd work.$(hostname)/$(make show-var VARNAME=DISTNAME)
-    
-    
+    - cd work.*/${PROJECT}*/
   except:
     - gh-pages
 
@@ -39,11 +42,7 @@ robotpkg-talos-metapkg-ros-control-sot-14.04:
 robotpkg-talos-metapkg-ros-control-sot-16.04:
   <<: *robotpkg-talos-metapkg-ros-control-sot
   image: ${IMAGE}:16.04
-
-
+  
 robotpkg-talos-metapkg-ros-control-sot-dubnium:
   <<: *robotpkg-talos-metapkg-ros-control-sot
   image: ${IMAGE}:dubnium
-
-
-

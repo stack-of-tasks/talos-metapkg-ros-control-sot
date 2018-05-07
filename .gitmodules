@@ -1,3 +1,0 @@
-[submodule "talos_roscontrol_sot/cmake"]
-	path = talos_roscontrol_sot/cmake
-	url = https://github.com/jrl-umi3218/jrl-cmakemodules.git
