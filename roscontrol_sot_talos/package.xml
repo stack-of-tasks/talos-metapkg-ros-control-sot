@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  <name>talos_roscontrol_sot_talos</name>
+  <name>roscontrol_sot_talos</name>
   <version>0.0.7</version>
   <description>Wrapping Stack-of-tasks for Talos in ros-control</description>
 
@@ -42,6 +42,7 @@
   <build_depend>realtime_tools</build_depend>
   <build_depend>cmake_modules</build_depend>
   <build_depend>roscontrol_sot</build_depend>
+  <build_depend>controller_interface</build_depend>
 
   <run_depend>roscpp</run_depend>
   <run_depend>control_msgs</run_depend>
@@ -51,5 +52,6 @@
   <run_depend>std_msgs</run_depend>
   <run_depend>cmake_modules</run_depend>
   <run_depend>roscontrol_sot</run_depend>
+  <run_depend>controller_interface</run_depend>
   <!-- The export tag contains other, unspecified, tags -->
 </package>
