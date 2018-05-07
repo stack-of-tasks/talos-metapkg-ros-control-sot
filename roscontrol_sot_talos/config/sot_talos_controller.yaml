@@ -1,5 +1,5 @@
 sot_controller:
-  type: talos_sot_controller/RCSotController
+  type: sot_controller/RCSotController
   joints:
     - arm_left_1_joint
     - arm_left_2_joint
