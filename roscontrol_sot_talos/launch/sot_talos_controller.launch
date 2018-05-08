@@ -1,8 +1,8 @@
 <launch>
 
   <!-- Sot Controller configuration -->
-  <rosparam command="load" file="$(find talos_roscontrol_sot_talos)/config/sot_talos_params.yaml"/>
-  <rosparam command="load" file="$(find talos_roscontrol_sot_talos)/config/sot_talos_controller.yaml" />
+  <rosparam command="load" file="$(find roscontrol_sot_talos)/config/sot_talos_params.yaml"/>
+  <rosparam command="load" file="$(find roscontrol_sot_talos)/config/sot_talos_controller.yaml" />
   
   <!-- Spawn walking controller -->
   <node name="sot_controller_spawner"
