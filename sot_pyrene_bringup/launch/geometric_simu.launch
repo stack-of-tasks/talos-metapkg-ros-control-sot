@@ -6,7 +6,7 @@
   <arg name="robot" default="pyrene" />
   <arg name="libsot" default="libsot-pyrene-controller.so" />   
 
-  <arg name="sot-launch-prefix" default="" />   
+  <arg name="sot-launch-prefix" default="" />
 
   <include file="$(find sot_pyrene_bringup)/launch/geometric_simu_context.launch" >
     <arg name="robot" value="$(arg robot)" />       
