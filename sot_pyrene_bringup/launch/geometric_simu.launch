@@ -18,7 +18,7 @@
         name="node_stack_of_tasks" 
 	pkg="dynamic_graph_bridge"
 	type="geometric_simu"
-        args=" --input-file $(arg libsot)" 
+        args=" --input-file $(arg libsot)"
         launch-prefix="$(arg sot-launch-prefix)"
 	respawn="true">
     <param name="/sot/dg/geometric_simu" value="" />
