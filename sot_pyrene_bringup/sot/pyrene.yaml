@@ -17,4 +17,5 @@ sot:
     gripper_right_motor_single_joint: -gripper_right_joint,
     gripper_right_inner_single_joint: -gripper_right_joint,
     gripper_right_fingertip_3_joint: -gripper_right_joint}
+sot_controller:
   dt: 0.001
