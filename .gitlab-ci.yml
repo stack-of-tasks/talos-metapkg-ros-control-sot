@@ -43,7 +43,7 @@ robotpkg-talos-metapkg-ros-control-sot-14.04:
     - export CCACHE_BASEDIR=${PWD}
     - export CCACHE_DIR=${PWD}/ccache
     - apt-get update    
-    - apt-get install ros-indigo-four-wheels-steering-msgs
+    - apt-get install ros-indigo-four-wheel-steering-msgs
   image: ${IMAGE}:14.04
 
 
@@ -54,7 +54,7 @@ robotpkg-talos-metapkg-ros-control-sot-16.04:
     - cd build
     - export CCACHE_BASEDIR=${PWD}
     - export CCACHE_DIR=${PWD}/ccache
-    - apt-get install ros-kinetic-four-wheels-steering-msgs  
+    - apt-get install ros-kinetic-four-wheel-steering-msgs  
   image: ${IMAGE}:16.04
   
 robotpkg-talos-metapkg-ros-control-sot-dubnium:
@@ -65,5 +65,5 @@ robotpkg-talos-metapkg-ros-control-sot-dubnium:
     - export CCACHE_BASEDIR=${PWD}
     - export CCACHE_DIR=${PWD}/ccache
     - apt-get update
-    - apt-get install ros-indigo-four-wheels-steering-msgs
+    - apt-get install ros-indigo-four-wheel-steering-msgs
   image: ${IMAGE}:dubnium
