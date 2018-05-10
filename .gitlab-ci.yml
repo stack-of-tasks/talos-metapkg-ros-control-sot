@@ -43,7 +43,7 @@ robotpkg-talos-metapkg-ros-control-sot-14.04:
     - export CCACHE_BASEDIR=${PWD}
     - export CCACHE_DIR=${PWD}/ccache
     - apt-get update    
-    - apt-get install ros-indigo-twist-mux ros-indigo-joy-teleop ros-indigo-moveit-ros-move-group  ros-indigo-humanoid-nav-msgs ros-indigo-four-wheel-steering-msgs ros-indigo-urdf-geometry-parser
+    - apt-get install -y ros-indigo-twist-mux ros-indigo-joy-teleop ros-indigo-moveit-ros-move-group  ros-indigo-humanoid-nav-msgs ros-indigo-four-wheel-steering-msgs 
   image: ${IMAGE}:14.04
 
 
@@ -55,7 +55,7 @@ robotpkg-talos-metapkg-ros-control-sot-16.04:
     - export CCACHE_BASEDIR=${PWD}
     - export CCACHE_DIR=${PWD}/ccache
     - apt-get update        
-    - apt-get install ros-kinetic-twist-mux ros-kinetic-joy-teleop ros-kinetic-moveit-ros-move-group  ros-kinetic-humanoid-nav-msgs ros-kinetic-four-wheel-steering-msgs ros-kinetic-urdf-geometry-parser  
+    - apt-get install -y ros-kinetic-twist-mux ros-kinetic-joy-teleop ros-kinetic-moveit-ros-move-group  ros-kinetic-humanoid-nav-msgs ros-kinetic-four-wheel-steering-msgs ros-kinetic-urdf-geometry-parser  
   image: ${IMAGE}:16.04
   
 robotpkg-talos-metapkg-ros-control-sot-dubnium:
