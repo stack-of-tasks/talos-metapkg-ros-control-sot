@@ -42,6 +42,7 @@ robotpkg-talos-metapkg-ros-control-sot-14.04:
     - cd build
     - export CCACHE_BASEDIR=${PWD}
     - export CCACHE_DIR=${PWD}/ccache
+    - apt-get update    
     - apt-get install ros-indigo-four-wheels-steering-msgs
   image: ${IMAGE}:14.04
 
@@ -63,5 +64,6 @@ robotpkg-talos-metapkg-ros-control-sot-dubnium:
     - cd build
     - export CCACHE_BASEDIR=${PWD}
     - export CCACHE_DIR=${PWD}/ccache
+    - apt-get update
     - apt-get install ros-indigo-four-wheels-steering-msgs
   image: ${IMAGE}:dubnium
