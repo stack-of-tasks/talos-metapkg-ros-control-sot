@@ -27,6 +27,7 @@ cache:
     - git pull
     - echo "MASTER_REPOSITORY = git ${CI_PROJECT_DIR}" >> Makefile
     - echo "REPOSITORY.talos-metapkg-ros-control-sot = git ${CI_PROJECT_DIR}" >> /opt/openrobots/etc/robotpkg.conf
+    - echo "ACCEPTABLE_LICENSES+=pal-license" >> /opt/openrobots/etc/robotpkg.conf
     - make checkout
     - make install
     - cd work.*/${PROJECT}*/
