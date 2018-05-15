@@ -1,0 +1,14 @@
+<launch>
+  <node pkg="roscontrol_sot_talos" name="republish" type="republish"/>
+
+  <node pkg="tf" type="static_transform_publisher"
+    name="base_link_broadcaster"
+    args="0 0 0 0 0 0 1 base_link sot/base_link 100" />
+
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub" >
+    <remap from="/joint_states" to="/sot/joint_state" />
+    <param name="tf_prefix" value="/sot" />
+  </node>
+
+  <node pkg="rviz" type="rviz" name="rviz" />
+</launch>
