@@ -2,9 +2,9 @@ sot_controller:
   libname: libsot-pyrene-controller.so
   joint_names: [ leg_left_1_joint, leg_left_2_joint, leg_left_3_joint, leg_left_4_joint, leg_left_5_joint, leg_left_6_joint,
     leg_right_1_joint, leg_right_2_joint, leg_right_3_joint, leg_right_4_joint, leg_right_5_joint, leg_right_6_joint,
-    torso_1_joint,torso_2_joint,head_1_joint, head_2_joint,
+    torso_1_joint,torso_2_joint,
     arm_left_1_joint, arm_left_2_joint, arm_left_3_joint, arm_left_4_joint, arm_left_5_joint, arm_left_6_joint, arm_left_7_joint, gripper_left_joint,
-    arm_right_1_joint, arm_right_2_joint, arm_right_3_joint, arm_right_4_joint, arm_right_5_joint, arm_right_6_joint, arm_right_7_joint, gripper_right_joint
+    arm_right_1_joint, arm_right_2_joint, arm_right_3_joint, arm_right_4_joint, arm_right_5_joint, arm_right_6_joint, arm_right_7_joint, gripper_right_joint, head_1_joint, head_2_joint
   ]
   map_rc_to_sot_device: { motor-angles: motor-angles ,
   joint-angles: joint-angles, velocities: velocities,
@@ -49,7 +49,7 @@ sot_controller:
     - name: arm_left_5_joint
       des_pos: 0.0
     - name: arm_left_6_joint
-      des_pos: 0.1
+      des_pos: 0.0
     - name: arm_left_7_joint
       des_pos: 0.1
     - name: gripper_left_joint
@@ -65,7 +65,7 @@ sot_controller:
     - name: arm_right_5_joint
       des_pos: 0.0
     - name: arm_right_6_joint
-      des_pos: 0.1
+      des_pos: 0.0
     - name: arm_right_7_joint
       des_pos: 0.1
     - name: gripper_right_joint
