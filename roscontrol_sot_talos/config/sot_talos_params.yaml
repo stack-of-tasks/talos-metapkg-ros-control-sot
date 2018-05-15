@@ -8,6 +8,73 @@ sot_controller:
   ]
   map_rc_to_sot_device: { motor-angles: motor-angles ,
   joint-angles: joint-angles, velocities: velocities,
-  torques: torques, cmd-positions: control, cmd-effort: control }
+  torques: torques, cmd-joints: control, cmd-effort: control }
+  position_control_init_pos:
+    - name: leg_left_1_joint
+      des_pos: 0.0
+    - name: leg_left_2_joint
+      des_pos: 0.0
+    - name: leg_left_3_joint
+      des_pos: -0.411354
+    - name: leg_left_4_joint
+      des_pos: 0.859395
+    - name: leg_left_5_joint
+      des_pos: -0.448041
+    - name: leg_left_6_joint
+      des_pos: -0.001708
+    - name: leg_right_1_joint
+      des_pos: 0.0
+    - name: leg_right_2_joint
+      des_pos: 0.0
+    - name: leg_right_3_joint
+      des_pos: -0.411354
+    - name: leg_right_4_joint
+      des_pos: 0.859395
+    - name: leg_right_5_joint
+      des_pos: -0.448041
+    - name: leg_right_6_joint
+      des_pos: -0.001708
+    - name: torso_1_joint
+      des_pos: 0.0
+    - name: torso_2_joint
+      des_pos: 0.006761
+    - name: arm_left_1_joint
+      des_pos: 0.25847
+    - name: arm_left_2_joint
+      des_pos: 0.173046
+    - name: arm_left_3_joint
+      des_pos: 0.0002
+    - name: arm_left_4_joint
+      des_pos: -0.525366
+    - name: arm_left_5_joint
+      des_pos: 0.0
+    - name: arm_left_6_joint
+      des_pos: 0.1
+    - name: arm_left_7_joint
+      des_pos: 0.1
+    - name: gripper_left_joint
+      des_pos: -0.005
+    - name: arm_right_1_joint
+      des_pos: -0.25847
+    - name: arm_right_2_joint
+      des_pos: -0.173046
+    - name: arm_right_3_joint
+      des_pos: 0.0002
+    - name: arm_right_4_joint
+      des_pos: -0.525366
+    - name: arm_right_5_joint
+      des_pos: 0.0
+    - name: arm_right_6_joint
+      des_pos: 0.1
+    - name: arm_right_7_joint
+      des_pos: 0.1
+    - name: gripper_right_joint
+      des_pos: -0.005 
+    - name: head_1_joint
+      des_pos:: 0.0
+    - name: head_2_joint
+      des_pos:: 0.0   
   control_mode: POSITION
   dt: 0.001
+  jitter: 0.0004
+  

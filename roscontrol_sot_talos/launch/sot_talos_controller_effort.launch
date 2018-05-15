@@ -2,8 +2,8 @@
 
   <!-- Sot Controller configuration -->
   <rosparam command="load" file="$(find roscontrol_sot_talos)/config/sot_talos_params_effort.yaml"/>
+  <rosparam command="load" ns="/sot_controller/effort_control_pd_motor_init" file="$(find talos_hardware_gazebo)/config/pids.yaml"/>
   <rosparam command="load" file="$(find roscontrol_sot_talos)/config/sot_talos_controller.yaml" />
-  <rosparam command="load" file="$(find roscontrol_sot_talos)/config/pids.yaml" />
   
   <env name="PYTHONPATH" value="/opt/pal/dubnium/lib/python2.7/dist-packages:/opt/ros/indigo/lib/python2.7/dist-packages:/opt/openrobots/lib/python2.7/dist-packages:/opt/openrobots/lib/python2.7/site-packages" />
   <!-- Spawn walking controller -->
