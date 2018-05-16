@@ -24,7 +24,14 @@ cache:
   script:
     - cd /root/robotpkg/${CATEGORY}/${ROBOTPKG}
     - git pull
+<<<<<<< HEAD
     - make checkout MASTER_REPOSITORY="dir ${CI_PROJECT_DIR}"
+=======
+    - echo "MASTER_REPOSITORY = git ${CI_PROJECT_DIR}" >> Makefile
+    - echo "REPOSITORY.talos-metapkg-ros-control-sot = git ${CI_PROJECT_DIR}" >> /opt/openrobots/etc/robotpkg.conf
+    - echo "ACCEPTABLE_LICENSES+=pal-license" >> /opt/openrobots/etc/robotpkg.conf
+    - make checkout
+>>>>>>> 6c3328158e5a7d6aaad1001c19e64e76df813aa1
     - make install
     - cd work.$(hostname)/$(make show-var VARNAME=DISTNAME)
     
@@ -33,16 +40,37 @@ cache:
 
 robotpkg-talos-metapkg-ros-control-sot-14.04:
   <<: *robotpkg-talos-metapkg-ros-control-sot
+  before_script:
+    - mkdir -p build/ccache
+    - cd build
+    - export CCACHE_BASEDIR=${PWD}
+    - export CCACHE_DIR=${PWD}/ccache
+    - apt-get update    
+    - apt-get install -y ros-indigo-twist-mux ros-indigo-joy-teleop ros-indigo-moveit-ros-move-group  ros-indigo-humanoid-nav-msgs ros-indigo-four-wheel-steering-msgs 
   image: ${IMAGE}:14.04
 
 
 robotpkg-talos-metapkg-ros-control-sot-16.04:
   <<: *robotpkg-talos-metapkg-ros-control-sot
+  before_script:
+    - mkdir -p build/ccache
+    - cd build
+    - export CCACHE_BASEDIR=${PWD}
+    - export CCACHE_DIR=${PWD}/ccache
+    - apt-get update        
+    - apt-get install -y ros-kinetic-twist-mux ros-kinetic-joy-teleop ros-kinetic-moveit-ros-move-group  ros-kinetic-humanoid-nav-msgs ros-kinetic-four-wheel-steering-msgs ros-kinetic-urdf-geometry-parser  
   image: ${IMAGE}:16.04
 
 
 robotpkg-talos-metapkg-ros-control-sot-dubnium:
   <<: *robotpkg-talos-metapkg-ros-control-sot
+  before_script:
+    - mkdir -p build/ccache
+    - cd build
+    - export CCACHE_BASEDIR=${PWD}
+    - export CCACHE_DIR=${PWD}/ccache
+    - apt-get update
+    - apt-get install ros-indigo-twist-mux ros-indigo-joy-teleop ros-indigo-moveit-ros-move-group  ros-indigo-humanoid-nav-msgs ros-indigo-four-wheel-steering-msgs ros-indigo-urdf-geometry-parser
   image: ${IMAGE}:dubnium
 
 
