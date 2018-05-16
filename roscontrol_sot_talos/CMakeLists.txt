@@ -65,7 +65,8 @@ foreach(dir config launch)
   )
 endforeach()
 
-
+catkin_install_python(PROGRAMS scripts/republish
+                      DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 #############
 ## Testing ##
 #############
