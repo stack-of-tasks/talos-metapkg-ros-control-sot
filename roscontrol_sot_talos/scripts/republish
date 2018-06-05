@@ -3,9 +3,19 @@
 import rospy
 from dynamic_graph_bridge_msgs.msg import Vector
 from sensor_msgs.msg import JointState
+import sys
+
+if len(sys.argv)>1:
+    input_topic = sys.argv[1]
+    if len(sys.argv)>2:
+        output_topic = sys.argv[2]
+    else:
+        output_topic = "/sot/joint_state"
+else:
+    input_topic = "/sot_hpp/state"
 
 rospy.init_node('sot_reemitter', anonymous=True)
-pub = rospy.Publisher('/sot/joint_state', JointState, queue_size=10)
+pub = rospy.Publisher(output_topic, JointState, queue_size=10)
     
 seqnb = 0
 aJS = JointState()
@@ -25,7 +35,7 @@ def jointreceived(jstates):
     pub.publish(aJS)
 
 def listener():
-    rospy.Subscriber("/sot_hpp/state", Vector, jointreceived)
+    rospy.Subscriber(input_topic, Vector, jointreceived)
     rospy.spin()
     
 if __name__ == '__main__':
