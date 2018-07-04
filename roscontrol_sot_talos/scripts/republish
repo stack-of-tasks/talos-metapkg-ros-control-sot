@@ -5,17 +5,18 @@ from dynamic_graph_bridge_msgs.msg import Vector
 from sensor_msgs.msg import JointState
 import sys
 
+# Arg 1
+input_topic = "/sot_hpp/state"
+# Arg 2
+output_topic = "/sot/joint_state"
+# Arg 3
 publish_root_wrt_odom = False
 if len(sys.argv)>1:
     input_topic = sys.argv[1]
     if len(sys.argv)>2:
         output_topic = sys.argv[2]
-    else:
-        output_topic = "/sot/joint_state"
-    if len(sys.argv)>3:
-        publish_root_wrt_odom = (sys.argv[3].lower() in ("true","on"))
-else:
-    input_topic = "/sot_hpp/state"
+        if len(sys.argv)>3:
+            publish_root_wrt_odom = (sys.argv[3].lower() in ("true","on"))
 
 rospy.init_node('sot_reemitter', anonymous=True)
 pub = rospy.Publisher(output_topic, JointState, queue_size=10)
