@@ -5,7 +5,6 @@
   <rosparam command="load" ns="/sot_controller/effort_control_pd_motor_init" file="$(find roscontrol_sot_talos)/config/pids_effort.yaml"/>
   <rosparam command="load" file="$(find roscontrol_sot_talos)/config/sot_talos_controller.yaml" />
   
-  <env name="PYTHONPATH" value="/opt/pal/dubnium/lib/python2.7/dist-packages:/opt/ros/indigo/lib/python2.7/dist-packages:/opt/openrobots/lib/python2.7/dist-packages:/opt/openrobots/lib/python2.7/site-packages" />
   <!-- Spawn walking controller -->
   <node name="sot_controller_spawner"
         pkg="controller_manager" type="spawner" output="screen"
