@@ -11,4 +11,4 @@ sot_controller:
   torques: torques, cmd-joints: control, cmd-effort: control, accelerometer_0: accelerometer_0, gyrometer_0: gyrometer_0 }
   control_mode: EFFORT
   dt: 0.001
-  jitter: 0.0004	
+  jitter: 0.0004
