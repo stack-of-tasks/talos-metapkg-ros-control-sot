@@ -71,9 +71,9 @@ sot_controller:
     - name: gripper_right_joint
       des_pos: -0.005 
     - name: head_1_joint
-      des_pos:: 0.0
+      des_pos: 0.0
     - name: head_2_joint
-      des_pos:: 0.0   
+      des_pos: 0.0   
   control_mode: POSITION
   dt: 0.001
   jitter: 0.0004
