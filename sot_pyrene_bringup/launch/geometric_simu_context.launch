@@ -10,7 +10,7 @@
 
    <!-- Load robot model. -->
   <param name="robot_description"
-	 textfile="$(find talos_data)/urdf/talos_reduced.urdf" />
+	 textfile="$(find talos_data)/urdf/talos_reduced_v2.urdf" />
 
 
    <!-- Load robot sot params. -->
@@ -18,8 +18,7 @@
 	 file="$(find sot_pyrene_bringup)/sot/pyrene.yaml" />
   
   <machine name="geometric_simu_machine"
-           address="localhost">
-  </machine >
+    address="localhost" />
 
   <!--
      Read joint_states topic and publish link positions to tf.
