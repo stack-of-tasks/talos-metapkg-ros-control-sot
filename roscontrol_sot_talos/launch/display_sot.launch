@@ -1,6 +1,7 @@
 <launch>
   <arg name="input_topic" default="/sot_hpp/state"/>
   <arg name="output_prefix" default="/sot"/>
+  <arg name="rviz" default="false"/>
 
   <node pkg="roscontrol_sot_talos" name="republish" type="republish" args="$(arg input_topic) $(arg output_prefix)/joint_state true"/>
 
@@ -13,5 +14,5 @@
     <param name="tf_prefix" value="$(arg output_prefix)" />
   </node>
 
-  <node pkg="rviz" type="rviz" name="rviz" />
+  <node if="$(arg rviz)" pkg="rviz" type="rviz" name="rviz" />
 </launch>
