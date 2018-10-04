@@ -2,17 +2,23 @@
   <arg name="input_topic" default="/sot_hpp/state"/>
   <arg name="output_prefix" default="/sot"/>
   <arg name="rviz" default="false"/>
+  <arg name="publish_root" default="true"/>
 
-  <node pkg="roscontrol_sot_talos" name="republish" type="republish" args="$(arg input_topic) $(arg output_prefix)/joint_state true"/>
+  <node pkg="roscontrol_sot_talos" name="$(anon republish)" type="republish" args="$(arg input_topic) $(arg output_prefix)/joint_state $(arg publish_root)"/>
 
   <node pkg="tf" type="static_transform_publisher"
-    name="base_link_broadcaster"
-    args="0 0 0 0 0 0 1 odom $(arg output_prefix)/odom 100" />
+    name="$(anon base_link_broadcaster)"
+    args="0 0 0 0 0 0 1 odom $(arg output_prefix)/odom 100"
+    if="$(arg publish_root)" />
+  <node pkg="tf" type="static_transform_publisher"
+    name="$(anon base_link_broadcaster)"
+    args="0 0 0 0 0 0 1 odom $(arg output_prefix)/base_link 100"
+    unless="$(arg publish_root)" />
 
-  <node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub" >
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="$(anon rob_st_pub)" >
     <remap from="/joint_states" to="$(arg output_prefix)/joint_state" />
     <param name="tf_prefix" value="$(arg output_prefix)" />
   </node>
 
-  <node if="$(arg rviz)" pkg="rviz" type="rviz" name="rviz" />
+  <node if="$(arg rviz)" pkg="rviz" type="rviz" name="$(anon rviz)" />
 </launch>
