@@ -1,0 +1,35 @@
+sot_controller:
+  control_mode:
+    arm_left_1_joint: { ros_control_mode: EFFORT, sot_control_mode: EFFORT}
+    arm_left_2_joint: { ros_control_mode: EFFORT, sot_control_mode: EFFORT}
+    arm_left_3_joint: { ros_control_mode: EFFORT, sot_control_mode: EFFORT}
+    arm_left_4_joint: { ros_control_mode: EFFORT, sot_control_mode: EFFORT}
+    arm_left_5_joint: { ros_control_mode: EFFORT, sot_control_mode: EFFORT}
+    arm_left_6_joint: { ros_control_mode: EFFORT, sot_control_mode: EFFORT}
+    arm_left_7_joint: { ros_control_mode: EFFORT, sot_control_mode: EFFORT}
+    arm_right_1_joint: { ros_control_mode: EFFORT, sot_control_mode: EFFORT}
+    arm_right_2_joint: { ros_control_mode: EFFORT, sot_control_mode: EFFORT}
+    arm_right_3_joint: { ros_control_mode: EFFORT, sot_control_mode: EFFORT}
+    arm_right_4_joint: { ros_control_mode: EFFORT, sot_control_mode: EFFORT}
+    arm_right_5_joint: { ros_control_mode: EFFORT, sot_control_mode: EFFORT}
+    arm_right_6_joint: { ros_control_mode: EFFORT, sot_control_mode: EFFORT}
+    arm_right_7_joint: { ros_control_mode: EFFORT, sot_control_mode: EFFORT}
+    gripper_left_joint: { ros_control_mode: POSITION, sot_control_mode: POSITION}
+    gripper_right_joint: { ros_control_mode: POSITION, sot_control_mode: POSITION}
+    head_1_joint: { ros_control_mode: POSITION, sot_control_mode: POSITION}
+    head_2_joint: { ros_control_mode: POSITION, sot_control_mode: POSITION}    
+    leg_left_1_joint: { ros_control_mode: EFFORT, sot_control_mode: EFFORT}
+    leg_left_2_joint: { ros_control_mode: EFFORT, sot_control_mode: EFFORT}
+    leg_left_3_joint: { ros_control_mode: EFFORT, sot_control_mode: EFFORT}
+    leg_left_4_joint: { ros_control_mode: EFFORT, sot_control_mode: EFFORT}
+    leg_left_5_joint: { ros_control_mode: EFFORT, sot_control_mode: EFFORT}
+    leg_left_6_joint: { ros_control_mode: EFFORT, sot_control_mode: EFFORT}
+    leg_right_1_joint: { ros_control_mode: EFFORT, sot_control_mode: EFFORT}
+    leg_right_2_joint: { ros_control_mode: EFFORT, sot_control_mode: EFFORT}
+    leg_right_3_joint: { ros_control_mode: EFFORT, sot_control_mode: EFFORT}
+    leg_right_4_joint: { ros_control_mode: EFFORT, sot_control_mode: EFFORT}
+    leg_right_5_joint: { ros_control_mode: EFFORT, sot_control_mode: EFFORT}
+    leg_right_6_joint: { ros_control_mode: EFFORT, sot_control_mode: EFFORT}
+    torso_1_joint: { ros_control_mode: EFFORT, sot_control_mode: EFFORT}
+    torso_2_joint: { ros_control_mode: EFFORT, sot_control_mode: EFFORT}    
+    

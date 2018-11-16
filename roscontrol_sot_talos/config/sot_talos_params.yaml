@@ -8,7 +8,7 @@ sot_controller:
   ]
   map_rc_to_sot_device: { motor-angles: motor-angles ,
   joint-angles: joint-angles, velocities: velocities, forces: forces, currents: currents,
-  torques: torques, cmd-joints: control, cmd-effort: control, accelerometer_0: accelerometer_0, gyrometer_0: gyrometer_0 }
+  torques: torques, control: control, accelerometer_0: accelerometer_0, gyrometer_0: gyrometer_0 }
   position_control_init_pos:
     - name: leg_left_1_joint
       des_pos: 0.0
@@ -74,7 +74,6 @@ sot_controller:
       des_pos: 0.0
     - name: head_2_joint
       des_pos: 0.0   
-  control_mode: POSITION
   dt: 0.001
   jitter: 0.0004
   

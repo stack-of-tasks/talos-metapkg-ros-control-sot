@@ -2,6 +2,7 @@
 
   <!-- Sot Controller configuration -->
   <rosparam command="load" file="$(find roscontrol_sot_talos)/config/sot_talos_params.yaml"/>
+  <rosparam command="load" file="$(find roscontrol_sot_talos)/config/sot_talos_params_control_mode.yaml"/>  
   <rosparam command="load" file="$(find roscontrol_sot_talos)/config/sot_talos_controller.yaml" />
   
   <!-- Spawn walking controller -->

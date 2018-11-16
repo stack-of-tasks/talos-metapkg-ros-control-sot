@@ -8,7 +8,6 @@ sot_controller:
     head_1_joint, head_2_joint ]
   map_rc_to_sot_device: { motor-angles: motor-angles ,
   joint-angles: joint-angles, velocities: velocities, forces: forces, currents: currents,
-  torques: torques, cmd-joints: control, cmd-effort: control, accelerometer_0: accelerometer_0, gyrometer_0: gyrometer_0 }
-  control_mode: EFFORT
+  torques: torques, control: control, accelerometer_0: accelerometer_0, gyrometer_0: gyrometer_0 }
   dt: 0.001
   jitter: 0.0004
