@@ -70,12 +70,11 @@ sot_controller:
     - name: arm_right_7_joint
       des_pos: 0.1
     - name: gripper_right_joint
-      des_pos: -0.005 
+      des_pos: -0.005
     - name: head_1_joint
       des_pos: 0.0
     - name: head_2_joint
-      des_pos: 0.0   
+      des_pos: 0.0
   dt: 0.001
   jitter: 0.0004
   verbosity_level: 5
-  

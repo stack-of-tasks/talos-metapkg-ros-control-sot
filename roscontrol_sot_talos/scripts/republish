@@ -6,7 +6,7 @@ from sensor_msgs.msg import JointState
 import sys
 
 # Arg 1
-input_topic = "/sot_hpp/state"
+input_topic = "/robotState"
 # Arg 2
 output_topic = "/sot/joint_state"
 # Arg 3
