@@ -10,7 +10,7 @@
 
    <!-- Load robot model. -->
   <param name="robot_description"
-	 textfile="$(find talos_data)/urdf/talos_reduced_v2.urdf" />
+	 textfile="$(find talos_data)/urdf/pyrene.urdf" />
 
 
    <!-- Load robot sot params. -->
