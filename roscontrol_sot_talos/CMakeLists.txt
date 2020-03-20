@@ -13,7 +13,6 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
-  dynamic_graph_bridge
   control_msgs
   sensor_msgs
   realtime_tools
