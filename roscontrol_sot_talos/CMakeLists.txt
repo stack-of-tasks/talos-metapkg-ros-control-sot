@@ -32,30 +32,13 @@ catkin_package()
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 # include_directories(include)
-include_directories( 
+include_directories(
   ${catkin_INCLUDE_DIRS}
 )
-
-
-## Add cmake target dependencies of the executable
-## same as for the library above
-# add_dependencies(roscontrol_sot_talos_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-
-
 
 #############
 ## Install ##
 #############
-
-# all install targets should use catkin DESTINATION variables
-# See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
-
-## Mark executable scripts (Python etc.) for installation
-## in contrast to setup.py, you can choose the destination
-# install(PROGRAMS
-#   scripts/my_python_script
-#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
 
 ## Mark executables and/or libraries for installation
 foreach(dir config launch)
@@ -64,17 +47,9 @@ foreach(dir config launch)
   )
 endforeach()
 
-catkin_install_python(PROGRAMS scripts/republish
-                      DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
-#############
-## Testing ##
-#############
+catkin_install_python(PROGRAMS
+  scripts/republish
+  scripts/start_talos_gazebo.py
+  scripts/start_talos_gazebo_16_04.py
 
-## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_roscontrol_sot_talos.cpp)
-# if(TARGET ${PROJECT_NAME}-test)
-#   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
-# endif()
-
-## Add folders to be run by python nosetests
-# catkin_add_nosetests(test)
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
