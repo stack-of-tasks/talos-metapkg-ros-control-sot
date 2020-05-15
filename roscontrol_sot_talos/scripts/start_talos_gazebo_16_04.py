@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2.7
 # O. Stasse 17/01/2020
 # LAAS, CNRS
 
@@ -42,7 +42,7 @@ gazebo_unpause_physics = rospy.ServiceProxy('/gazebo/unpause_physics', Empty)
 gazebo_unpause_physics()
 
 # Start roscontrol
-launch_bringup = roslaunch.parent.ROSLaunchParent(uuid, ["/opt/openrobots/share/talos_bringup/launch/talos_bringup.launch"])
+launch_bringup = roslaunch.parent.ROSLaunchParent(uuid, ["/opt/openrobots/share/talos_data/launch/talos_bringup.launch"])
 launch_bringup.start()
 rospy.loginfo("talos_bringup started")
 
