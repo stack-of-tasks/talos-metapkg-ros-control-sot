@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # license removed for brevity
-import rospy, tf
+import rospy
+import tf
 from dynamic_graph_bridge_msgs.msg import Vector
 from sensor_msgs.msg import JointState
 import sys
