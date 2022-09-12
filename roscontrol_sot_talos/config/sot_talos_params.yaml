@@ -75,5 +75,4 @@ sot_controller:
     - name: head_2_joint
       des_pos: 0.0   
   dt: 0.001
-  jitter: 0.0004
-  
+  subsampling: 2
