@@ -1,1 +1,1 @@
-include: http://rainboard.laas.fr/project/talos-metapkg_ros_control_sot/.gitlab-ci.yml
+include: https://rainboard.laas.fr/project/talos-metapkg-ros-control-sot/.gitlab-ci.yml
