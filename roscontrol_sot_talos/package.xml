@@ -4,7 +4,7 @@
   <version>0.0.13</version>
   <description>Wrapping Stack-of-tasks for Talos in ros-control</description>
 
-  <!-- Maintainer email --> 
+  <!-- Maintainer email -->
   <maintainer email="ostasse@laas.fr">Olivier Stasse</maintainer>
 
 

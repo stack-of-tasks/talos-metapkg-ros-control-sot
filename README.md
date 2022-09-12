@@ -38,6 +38,3 @@ roslaunch roscontrol_sot_talos sot_talos_controller_effort.launch
 ``
 roslaunch sot_pyrene_bringup geometric_simu.launch
 ``
-
-
-
