@@ -17,7 +17,7 @@ sot_controller:
     gripper_left_joint: { ros_control_mode: POSITION, sot_control_mode: POSITION}
     gripper_right_joint: { ros_control_mode: POSITION, sot_control_mode: POSITION}
     head_1_joint: { ros_control_mode: POSITION, sot_control_mode: POSITION}
-    head_2_joint: { ros_control_mode: POSITION, sot_control_mode: POSITION}    
+    head_2_joint: { ros_control_mode: POSITION, sot_control_mode: POSITION}
     leg_left_1_joint: { ros_control_mode: POSITION, sot_control_mode: VELOCITY}
     leg_left_2_joint: { ros_control_mode: POSITION, sot_control_mode: VELOCITY}
     leg_left_3_joint: { ros_control_mode: POSITION, sot_control_mode: VELOCITY}
