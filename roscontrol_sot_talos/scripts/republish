@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # license removed for brevity
-import rospy, tf
+import rospy
+import tf
 from dynamic_graph_bridge_msgs.msg import Vector
 from sensor_msgs.msg import JointState
 import sys
@@ -11,31 +12,38 @@ input_topic = "/robotState"
 output_topic = "/sot/joint_state"
 # Arg 3
 publish_root_wrt_odom = False
-if len(sys.argv)>1:
+if len(sys.argv) > 1:
     input_topic = sys.argv[1]
-    if len(sys.argv)>2:
+    if len(sys.argv) > 2:
         output_topic = sys.argv[2]
-        if len(sys.argv)>3:
-            publish_root_wrt_odom = (sys.argv[3].lower() in ("true","on"))
+        if len(sys.argv) > 3:
+            publish_root_wrt_odom = sys.argv[3].lower() in ("true", "on")
 
-rospy.init_node('sot_reemitter', anonymous=True)
+rospy.init_node("sot_reemitter", anonymous=True)
 pub = rospy.Publisher(output_topic, JointState, queue_size=10)
-    
+
 seqnb = 0
 aJS = JointState()
 
 if publish_root_wrt_odom:
-    if output_topic.find('/') >= 0:
-        output_prefix = output_topic.rsplit('/',1)[0] + '/'
+    if output_topic.find("/") >= 0:
+        output_prefix = output_topic.rsplit("/", 1)[0] + "/"
     else:
         output_prefix = ""
-    rospy.loginfo("Will publish " + output_prefix + "base_link with respect to " + output_prefix + "odom")
+    rospy.loginfo(
+        "Will publish "
+        + output_prefix
+        + "base_link with respect to "
+        + output_prefix
+        + "odom"
+    )
 
-jointnames =  rospy.get_param("/sot_controller/joint_names")
-    
+jointnames = rospy.get_param("/sot_controller/joint_names")
+
+
 def jointreceived(jstates):
     global seqnb
-    seqnb = seqnb+1
+    seqnb = seqnb + 1
     time = rospy.Time.now()
     aJS.header.seq = seqnb
     aJS.header.stamp = time
@@ -48,18 +56,23 @@ def jointreceived(jstates):
 
     if publish_root_wrt_odom and len(jstates.data) > 6:
         br = tf.TransformBroadcaster()
-        br.sendTransform(jstates.data[0:3],
-                         tf.transformations.quaternion_from_euler(
-                             jstates.data[3], jstates.data[4], jstates.data[5]),
-                         time,
-                         output_prefix + "base_link",
-                         output_prefix + "odom")
+        br.sendTransform(
+            jstates.data[0:3],
+            tf.transformations.quaternion_from_euler(
+                jstates.data[3], jstates.data[4], jstates.data[5]
+            ),
+            time,
+            output_prefix + "base_link",
+            output_prefix + "odom",
+        )
+
 
 def listener():
     rospy.Subscriber(input_topic, Vector, jointreceived)
     rospy.spin()
-    
-if __name__ == '__main__':
+
+
+if __name__ == "__main__":
     try:
         listener()
     except rospy.ROSInterruptException:

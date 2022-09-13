@@ -4,7 +4,7 @@
 <launch>
   <!-- Which robot are we controlling ? -->
   <arg name="robot" default="pyrene" />
-  <arg name="libsot" default="libsot-pyrene-controller.so" />   
+  <arg name="libsot" default="libsot-pyrene-controller.so" />
 
   <!-- BTW we are in simulation ? -->
 
@@ -16,7 +16,7 @@
    <!-- Load robot sot params. -->
   <rosparam command="load"
 	 file="$(find sot_pyrene_bringup)/sot/pyrene.yaml" />
-  
+
   <machine name="geometric_simu_machine"
     address="localhost" />
 
